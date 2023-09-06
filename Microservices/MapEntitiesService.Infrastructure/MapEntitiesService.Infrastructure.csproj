@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MapEntitiesService.Core\MapEntitiesService.Core.csproj" />
+  </ItemGroup>
+
 </Project>
