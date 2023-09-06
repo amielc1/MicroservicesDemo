@@ -1,13 +1,21 @@
 ﻿using MapEntitiesService.Core.Models;
 using MapEntitiesService.Core.Services;
+using Microsoft.Extensions.Logging;
 
 namespace MapEntitiesService.Infrastructure.Services
 {
-    public class RabbitMQPublishService : IPublishService
+    internal class RabbitMQPublishService : IPublishService
     {
-        public void Publish(MapEntityDto entity, string topic)
+        private readonly ILogger<RabbitMQPublishService> _logger;
+        public RabbitMQPublishService(ILogger<RabbitMQPublishService> logger)
         {
-            Console.WriteLine($"Send Point {entity.Tile} to topic {topic}");
+                _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        }
+        public Task Publish(MapEntityDto entity, string topic)
+        {
+            _logger.LogInformation($"Send Point {entity.Tile} to RabbitMQPublishService. topic {topic}");
+
+            return Task.CompletedTask;
         }
     }
 

@@ -2,7 +2,7 @@
 
 namespace MapEntitiesService.Core.Services
 {
-    public interface IPublishService
+    public interface IMapEntityService
     {
         Task Publish(MapEntityDto entity, string topic);
     }

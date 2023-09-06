@@ -8,18 +8,21 @@ namespace MapEntitiesService.Controllers
     [ApiController]
     public class MapEntitiesController : ControllerBase
     {
-        private readonly IPublishService  _publishService;
+        private readonly IMapEntityService _mapEntityService;
+        private readonly ILogger<MapEntitiesController> _logger;
 
-        public MapEntitiesController(IPublishService  publishService)
+        public MapEntitiesController(IMapEntityService mapEntityService, ILogger<MapEntitiesController> logger)
         {
-            _publishService = publishService;
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));    
+            _mapEntityService = mapEntityService ?? throw new ArgumentNullException(nameof(mapEntityService));
         }
 
         [HttpPost]
-        public IActionResult CreateMapEntity(
+        public async  Task<IActionResult> CreateMapEntity(
             [FromBody] MapEntityDto mapEntity)
         {
-            _publishService.Publish(mapEntity, "topic");
+            _logger.LogInformation("from MapEntitiesController, send entity");
+            await _mapEntityService.Publish(mapEntity, "topic");
             return Ok(mapEntity);
         }
     }

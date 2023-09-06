@@ -1,16 +1,15 @@
-using MapEntitiesService.Core.Models;
-using MapEntitiesService.Core.Services;
-using MapEntitiesService.Infrastructure.Services;
+using MapEntitiesService.Infrastructure.Ioc;
 
 var builder = WebApplication.CreateBuilder(args);
-
 // Add services to the container.
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IPublishService, RabbitMQPublishService>();  //<IPublishService, RabbitMQPublishService>();
+
+builder.Services.AddInfrastructureLibrary();
+//builder.Services.AddScoped<IPublishService, RabbitMQPublishService>();  //<IPublishService, RabbitMQPublishService>();
 
 var app = builder.Build();
 
