@@ -5,9 +5,38 @@ VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MapEntitiesService", "MapEntitiesService", "{CE423629-EB4E-431F-826F-682702DA3F1A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapEntitiesService", "MapEntitiesService\MapEntitiesService.csproj", "{43992B28-4322-4DEA-942B-99A832DF0F13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapEntitiesService.Core", "MapEntitiesService.Core\MapEntitiesService.Core.csproj", "{7098DB5F-9142-4C19-9CD4-30E1830E2A76}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapEntitiesService.Infrastructure", "MapEntitiesService.Infrastructure\MapEntitiesService.Infrastructure.csproj", "{190B4BCB-5E3A-4962-990E-A9F4FC01A62E}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{43992B28-4322-4DEA-942B-99A832DF0F13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43992B28-4322-4DEA-942B-99A832DF0F13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43992B28-4322-4DEA-942B-99A832DF0F13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43992B28-4322-4DEA-942B-99A832DF0F13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7098DB5F-9142-4C19-9CD4-30E1830E2A76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7098DB5F-9142-4C19-9CD4-30E1830E2A76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7098DB5F-9142-4C19-9CD4-30E1830E2A76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7098DB5F-9142-4C19-9CD4-30E1830E2A76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{190B4BCB-5E3A-4962-990E-A9F4FC01A62E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{190B4BCB-5E3A-4962-990E-A9F4FC01A62E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{190B4BCB-5E3A-4962-990E-A9F4FC01A62E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{190B4BCB-5E3A-4962-990E-A9F4FC01A62E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{43992B28-4322-4DEA-942B-99A832DF0F13} = {CE423629-EB4E-431F-826F-682702DA3F1A}
+		{7098DB5F-9142-4C19-9CD4-30E1830E2A76} = {CE423629-EB4E-431F-826F-682702DA3F1A}
+		{190B4BCB-5E3A-4962-990E-A9F4FC01A62E} = {CE423629-EB4E-431F-826F-682702DA3F1A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {95F8464A-C7FC-4255-A375-506D4A170594}
