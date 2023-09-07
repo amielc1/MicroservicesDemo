@@ -12,9 +12,9 @@ namespace MessageBroker.Infrastructure.Ioc
     public static class MessageBrokerServiceCollection
     {
         public static void AddMessageBrokerLibrary(this IServiceCollection services)
-        {
-            services.AddScoped<IPublisher, RabbitMQPublisher>();
+        {         
             services.AddScoped<ISubscriber, RabbitMQSubscriber>();
+            services.AddScoped<IPublisher, RabbitMQPublisher>();
         }
     }
 }

@@ -10,12 +10,14 @@ namespace MapEntitiesService.Infrastructure.Services
     internal class MapEntityService : IMapEntityService
     {
         private readonly IPublisher _publishService;
+        private readonly ISubscriber _subscriberService;
         private readonly ILogger<MapEntityService> _logger;
 
-        public MapEntityService(ILogger<MapEntityService> logger, IPublisher publishService)
+        public MapEntityService(ILogger<MapEntityService> logger, IPublisher publishService, ISubscriber subscriberService)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _publishService = publishService ?? throw new ArgumentNullException(nameof(publishService));
+            _subscriberService = subscriberService;
         }
         public async Task Publish(MapEntityDto entity, string topic)
         {
