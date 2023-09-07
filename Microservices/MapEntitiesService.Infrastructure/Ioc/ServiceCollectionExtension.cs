@@ -8,7 +8,6 @@ namespace MapEntitiesService.Infrastructure.Ioc
     {
         public static void AddInfrastructureLibrary(this IServiceCollection services)
         {
-            services.AddScoped<IPublishService, RabbitMQPublishService>();
             services.AddScoped<IMapEntityService, MapEntityService>();
         }
     }

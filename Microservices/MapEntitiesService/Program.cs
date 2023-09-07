@@ -1,4 +1,5 @@
 using MapEntitiesService.Infrastructure.Ioc;
+using MessageBroker.Infrastructure.Ioc;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -9,7 +10,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddInfrastructureLibrary();
-//builder.Services.AddScoped<IPublishService, RabbitMQPublishService>();  //<IPublishService, RabbitMQPublishService>();
+builder.Services.AddMessageBrokerLibrary();
 
 var app = builder.Build();
 
