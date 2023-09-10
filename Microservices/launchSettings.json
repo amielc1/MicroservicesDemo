@@ -5,7 +5,8 @@
       "commandVersion": "1.0",
       "serviceActions": {
         "mapentitiesservice": "StartDebugging",
-        "webapplication1": "StartDebugging"
+        "webapplication1": "StartDebugging",
+        "notificationservice": "StartDebugging"
       }
     }
   }

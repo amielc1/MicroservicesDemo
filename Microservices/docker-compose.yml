@@ -22,8 +22,17 @@ services:
       - main 
        
 
+  notificationservice:
+    image: ${DOCKER_REGISTRY-}notificationservice
+    build:
+      context: .
+      dockerfile: NotificationService/Dockerfile
+    networks: 
+      - main
+
 networks:
  main:
     name: "main"  
     
+
 
