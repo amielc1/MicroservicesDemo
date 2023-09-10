@@ -35,7 +35,7 @@ namespace MessageBroker.Infrastructure.RabbitMQ
         public Task Subscribe(string topic, Action<string> OnMessageArrived)
         {
 
-            var factory = new ConnectionFactory { HostName = "localhost" };
+            var factory = new ConnectionFactory { HostName = "rabbithost" };
             var connection = factory.CreateConnection();
             channel = connection.CreateModel();
 

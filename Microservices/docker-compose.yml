@@ -1,0 +1,29 @@
+version: '3.4'
+
+services:
+  messageborkerservice:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmqmessagebroker
+    hostname: rabbithost
+    ports:
+       - 5672:5672
+       - 15672:15672
+    networks: 
+       - main 
+
+  mapentitiesservice:
+    image: ${DOCKER_REGISTRY-}mapentitiesservice
+    build:
+      context: .
+      dockerfile: MapEntitiesService/Dockerfile
+    depends_on:
+      - messageborkerservice
+    networks: 
+      - main 
+       
+
+networks:
+ main:
+    name: "main"  
+    
+
