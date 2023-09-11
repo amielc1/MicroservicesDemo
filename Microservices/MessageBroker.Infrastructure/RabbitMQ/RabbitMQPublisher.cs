@@ -30,16 +30,12 @@ namespace MessageBroker.Infrastructure.RabbitMQ
                                  arguments: null);
 
             var body = Encoding.UTF8.GetBytes(message);
-            for (int i = 0; i < 5; i++)
-            {
+          
                 channel.BasicPublish(exchange: string.Empty,
                                                  routingKey: queueName,
                                                  basicProperties: null,
                                                  body: body);
-            }
-
-
-
+          
             _logger.LogInformation($"Send Message {message} to RabbitMQPublishService. topic {topic}");
 
             return Task.CompletedTask;

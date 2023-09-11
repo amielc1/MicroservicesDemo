@@ -47,6 +47,20 @@ namespace MessageBroker.Infrastructure.RabbitMQ
 
             _logger.LogInformation(" [*] Waiting for messages.");
 
+            var consumer = new EventingBasicConsumer(channel);
+            consumer.Received += (model, ea) =>
+            {
+                var body = ea.Body.ToArray();
+                var message = Encoding.UTF8.GetString(body);
+                Console.WriteLine($" [x] Received {message}");
+                OnMessageArrived(message);
+            };
+          
+            channel.BasicConsume(queue: queueName,
+                                 autoAck: true,
+                                 consumer: consumer);
+
+
             return Task.CompletedTask;
         }
     }

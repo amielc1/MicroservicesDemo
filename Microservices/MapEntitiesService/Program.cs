@@ -10,7 +10,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddInfrastructureLibrary();
-builder.Services.AddMessageBrokerLibrary();
+builder.Services.AddMessageBrokerPublishLibrary();
 
 var app = builder.Build();
 

@@ -1,8 +1,14 @@
+using NotificationService.Infrastructure.Ioc;
+using MessageBroker.Infrastructure.Ioc;
+using NotificationService.Infrastructure;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddMessageBrokerSubscribeLibrary();
+builder.Services.AddNotificationServiceLibrary(); 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
