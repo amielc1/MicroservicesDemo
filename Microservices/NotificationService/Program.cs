@@ -1,14 +1,15 @@
-using NotificationService.Infrastructure.Ioc;
 using MessageBroker.Infrastructure.Ioc;
-using NotificationService.Infrastructure;
+using NotificationService.Hubs;
+using NotificationService.Infrastructure.Ioc;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddSignalR();
 builder.Services.AddMessageBrokerSubscribeLibrary();
-builder.Services.AddNotificationServiceLibrary(); 
+builder.Services.AddNotificationServiceLibrary();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -27,5 +28,5 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.MapHub<NotificationHub>("/notificationhub");
 app.Run();
