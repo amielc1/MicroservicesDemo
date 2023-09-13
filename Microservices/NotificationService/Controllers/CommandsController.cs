@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using NotificationService.Infrastructure.Services;
 using NotificationService.Core.Interfaces;
 
 namespace NotificationService.Controllers
@@ -21,14 +20,10 @@ namespace NotificationService.Controllers
         public async Task<IActionResult> Subscribe()
         {
             _logger.LogInformation("from CommandsController - Subscribe");
-            await _notificationService.Subscribe("entityQueue", foo);
+            //await _notificationService.Subscribe("entityQueue", foo);
             return Ok();
         }
 
-        private void foo(string msg)
-        {
-            _logger.LogInformation($"Message recived ~~~ {msg} ~~~");
-
-        }
+    
     }
 }

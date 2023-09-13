@@ -23,11 +23,15 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NotificationService", "NotificationService", "{0822B8B5-B72C-4328-A9C9-CBB2EC2BC583}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationService", "NotificationService\NotificationService.csproj", "{50E8AF40-F017-441E-AD20-DBF53685F1C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationService", "NotificationService\NotificationService.csproj", "{50E8AF40-F017-441E-AD20-DBF53685F1C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationService.Infrastructure", "NotificationService.Infrastructure\NotificationService.Infrastructure.csproj", "{1B3F3C7D-DB1A-4527-B3BB-4671AB772C08}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationService.Infrastructure", "NotificationService.Infrastructure\NotificationService.Infrastructure.csproj", "{1B3F3C7D-DB1A-4527-B3BB-4671AB772C08}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationService.Core", "NotificationService.Core\NotificationService.Core.csproj", "{3FEEB062-CD35-4904-B8A9-276E50BA6E51}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationService.Core", "NotificationService.Core\NotificationService.Core.csproj", "{3FEEB062-CD35-4904-B8A9-276E50BA6E51}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{E40ED870-8FFD-4074-A86F-46CD82F21C6A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapEntityClient", "MapEntityClient\MapEntityClient.csproj", "{020A2F2E-B2CC-4005-8D2C-8600A47ECD74}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,6 +75,10 @@ Global
 		{3FEEB062-CD35-4904-B8A9-276E50BA6E51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3FEEB062-CD35-4904-B8A9-276E50BA6E51}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3FEEB062-CD35-4904-B8A9-276E50BA6E51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{020A2F2E-B2CC-4005-8D2C-8600A47ECD74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{020A2F2E-B2CC-4005-8D2C-8600A47ECD74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{020A2F2E-B2CC-4005-8D2C-8600A47ECD74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{020A2F2E-B2CC-4005-8D2C-8600A47ECD74}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -85,6 +93,7 @@ Global
 		{50E8AF40-F017-441E-AD20-DBF53685F1C8} = {0822B8B5-B72C-4328-A9C9-CBB2EC2BC583}
 		{1B3F3C7D-DB1A-4527-B3BB-4671AB772C08} = {0822B8B5-B72C-4328-A9C9-CBB2EC2BC583}
 		{3FEEB062-CD35-4904-B8A9-276E50BA6E51} = {0822B8B5-B72C-4328-A9C9-CBB2EC2BC583}
+		{020A2F2E-B2CC-4005-8D2C-8600A47ECD74} = {E40ED870-8FFD-4074-A86F-46CD82F21C6A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {95F8464A-C7FC-4255-A375-506D4A170594}

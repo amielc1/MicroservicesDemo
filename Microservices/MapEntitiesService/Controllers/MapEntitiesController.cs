@@ -1,4 +1,5 @@
-﻿using MapEntitiesService.Core.Models;
+﻿using MapEntitiesService.Core.appsettings;
+using MapEntitiesService.Core.Models;
 using MapEntitiesService.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,11 +11,15 @@ namespace MapEntitiesService.Controllers
     {
         private readonly IMapEntityService _mapEntityService;
         private readonly ILogger<MapEntitiesController> _logger;
+        private readonly MapEntitiesServiceSettings _settings;
 
-        public MapEntitiesController(IMapEntityService mapEntityService, ILogger<MapEntitiesController> logger)
+        public MapEntitiesController(IMapEntityService mapEntityService,
+            ILogger<MapEntitiesController> logger,
+            MapEntitiesServiceSettings settings)
         {
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));    
-            _mapEntityService = mapEntityService ?? throw new ArgumentNullException(nameof(mapEntityService));
+            _logger = logger;
+            _settings = settings;
+            _mapEntityService = mapEntityService;
         }
 
         [HttpPost]
@@ -22,7 +27,7 @@ namespace MapEntitiesService.Controllers
             [FromBody] MapEntityDto mapEntity)
         {
             _logger.LogInformation("from MapEntitiesController, send entity");
-            await _mapEntityService.Publish(mapEntity, "topic");
+            await _mapEntityService.Publish(mapEntity, _settings.TopicName);
             return Ok(mapEntity);
         }
     }

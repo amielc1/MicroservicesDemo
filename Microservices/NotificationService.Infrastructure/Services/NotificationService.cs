@@ -4,7 +4,7 @@ using NotificationService.Core.Interfaces;
 
 namespace NotificationService.Infrastructure.Services
 {
-    public class NotificationService : INotificationService
+    internal class NotificationService : INotificationService
     {
         private readonly ISubscriber _subscribeService;
         private readonly ILogger<NotificationService> _logger;

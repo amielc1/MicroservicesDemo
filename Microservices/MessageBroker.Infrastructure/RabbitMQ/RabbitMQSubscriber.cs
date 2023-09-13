@@ -1,4 +1,5 @@
 ﻿using MessageBroker.Core.Interfaces;
+using MessageBroker.Core.Models;
 using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -8,38 +9,23 @@ namespace MessageBroker.Infrastructure.RabbitMQ
 {
     internal class RabbitMQSubscriber : ISubscriber
     {
-        private const string queueName = "entityQueue";
         private readonly ILogger<RabbitMQPublisher> _logger;
+        private readonly SubscriberSettings _settings;
         IModel channel;
 
-        public RabbitMQSubscriber(ILogger<RabbitMQPublisher> logger)
+        public RabbitMQSubscriber(ILogger<RabbitMQPublisher> logger, SubscriberSettings settings)
         {
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-
+            _logger = logger;
+            _settings = settings;
         }
-
-        private void onMessage(string message)
-        {
-            var consumer = new EventingBasicConsumer(channel);
-            consumer.Received += (model, ea) =>
-            {
-                var body = ea.Body.ToArray();
-                var message = Encoding.UTF8.GetString(body);
-                _logger.LogInformation($" [x] Received {message}");
-            };
-            channel.BasicConsume(queue: queueName,
-                                 autoAck: true,
-                                 consumer: consumer);
-        }
-
+         
         public Task Subscribe(string topic, Action<string> OnMessageArrived)
         {
-
-            var factory = new ConnectionFactory { HostName = "rabbithost" };
+            var factory = new ConnectionFactory { HostName = _settings.HostName };
             var connection = factory.CreateConnection();
             channel = connection.CreateModel();
 
-            channel.QueueDeclare(queue: queueName,
+            channel.QueueDeclare(queue: topic,
                    durable: false,
                    exclusive: false,
                    autoDelete: false,
@@ -55,11 +41,10 @@ namespace MessageBroker.Infrastructure.RabbitMQ
                 Console.WriteLine($" [x] Received {message}");
                 OnMessageArrived(message);
             };
-          
-            channel.BasicConsume(queue: queueName,
+
+            channel.BasicConsume(queue: topic,
                                  autoAck: true,
                                  consumer: consumer);
-
 
             return Task.CompletedTask;
         }

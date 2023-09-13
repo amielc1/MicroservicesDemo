@@ -2,7 +2,6 @@
 using MapEntitiesService.Core.Services;
 using MessageBroker.Core.Interfaces;
 using Microsoft.Extensions.Logging;
-using System.Net.Http.Json;
 using System.Text.Json;
 
 namespace MapEntitiesService.Infrastructure.Services

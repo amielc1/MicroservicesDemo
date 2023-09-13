@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using MessageBroker.Core.Models;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NotificationService.Core.Interfaces;
 
@@ -8,27 +9,25 @@ namespace NotificationService.Infrastructure.Services
     {
         private readonly ILogger<NotificationService> _logger;
         private readonly INotificationService _notificationService;
+        private readonly INewMapEntityCommandHandler _newMapEntityCommandHandler;
+        private readonly NotificationServiceSettings _settings;
 
-
-        public NotificationBackgroundService(ILogger<NotificationService> logger, INotificationService notificationService)
+        public NotificationBackgroundService(
+            ILogger<NotificationService> logger,
+            INotificationService notificationService,
+            INewMapEntityCommandHandler newMapEntityCommandHandler,
+            NotificationServiceSettings settings)
         {
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _notificationService = notificationService ?? throw new ArgumentNullException(nameof(notificationService));
-            _notificationService.Subscribe("entityQueue", onMessageArrived);
+            _logger = logger;
+            _settings = settings;
+            _notificationService = notificationService;
+            _newMapEntityCommandHandler = newMapEntityCommandHandler;
         }
 
-        private void onMessageArrived(string msg)
+        protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            _logger.LogInformation($"message arrived ####  {msg}  ####");
-        }
-
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
-        {
-            while (!stoppingToken.IsCancellationRequested)
-            {
-                _logger.LogInformation("Subscribe Worker running at: {time}", DateTimeOffset.Now);
-                await Task.Delay(1000, stoppingToken);
-            }
+            _notificationService.Subscribe(_settings.TopicName, _newMapEntityCommandHandler.ReciveMapEntity);
+            return Task.CompletedTask;
         }
 
     }

@@ -1,21 +1,23 @@
 ﻿using MessageBroker.Core.Interfaces;
+using MessageBroker.Core.Models;
 using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
 using System.Text;
 
 namespace MessageBroker.Infrastructure.RabbitMQ
 {
     internal class RabbitMQPublisher : IPublisher
     {
-        private const string queueName = "entityQueue";
+
         private readonly ILogger<RabbitMQPublisher> _logger;
+        private readonly PublisherSettings _settings;
         IModel channel;
 
-        public RabbitMQPublisher(ILogger<RabbitMQPublisher> logger)
+        public RabbitMQPublisher(ILogger<RabbitMQPublisher> logger, PublisherSettings settings)
         {
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            var factory = new ConnectionFactory { HostName = "rabbithost" };
+            _logger = logger;
+            _settings = settings;
+            var factory = new ConnectionFactory { HostName = _settings.HostName };
             var connection = factory.CreateConnection();
             channel = connection.CreateModel();
         }
@@ -23,19 +25,19 @@ namespace MessageBroker.Infrastructure.RabbitMQ
         public Task Publish(string message, string topic)
         {
 
-            channel.QueueDeclare(queue: queueName,
+            channel.QueueDeclare(queue: topic,
                                  durable: false,
                                  exclusive: false,
                                  autoDelete: false,
                                  arguments: null);
 
             var body = Encoding.UTF8.GetBytes(message);
-          
-                channel.BasicPublish(exchange: string.Empty,
-                                                 routingKey: queueName,
-                                                 basicProperties: null,
-                                                 body: body);
-          
+
+            channel.BasicPublish(exchange: string.Empty,
+                                             routingKey: topic,
+                                             basicProperties: null,
+                                             body: body);
+
             _logger.LogInformation($"Send Message {message} to RabbitMQPublishService. topic {topic}");
 
             return Task.CompletedTask;
