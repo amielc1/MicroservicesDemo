@@ -18,7 +18,7 @@ namespace MessageBroker.Infrastructure.RabbitMQ
             _logger = logger;
             _settings = settings;
         }
-         
+
         public Task Subscribe(string topic, Action<string> OnMessageArrived)
         {
             var factory = new ConnectionFactory { HostName = _settings.HostName };

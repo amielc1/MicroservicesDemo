@@ -11,6 +11,19 @@ services:
     networks: 
        - main 
 
+  storageservice:
+    image: minio/minio
+    container_name: miniostorageservice
+    hostname: minio
+    command: server /data --console-address ":9001"
+    volumes:
+        - C:\Temp\Docker\Data\Minio:/data
+    ports:
+       - 9000:9000
+       - 9001:9001
+    networks: 
+       - main 
+
   mapentitiesservice:
     image: ${DOCKER_REGISTRY-}mapentitiesservice
     build:
@@ -21,18 +34,27 @@ services:
     networks: 
       - main 
        
-
   notificationservice:
     image: ${DOCKER_REGISTRY-}notificationservice
     build:
       context: .
       dockerfile: NotificationService/Dockerfile
+    depends_on:
+      - messageborkerservice
+    networks: 
+      - main
+      
+  maprepositoryapi:
+    image: ${DOCKER_REGISTRY-}maprepositoryapi
+    environment:
+       - MINIO_ACCESS_KEY=t8LryXgHeC2u009qG2ja
+       - MINIO_SECRET_KEY=DotuNClm0kRcqtrSNPJZwbcRYApBTykNzACx5onv
+    build:
+      context: .
+      dockerfile: MapRepositoryAPI/Dockerfile
     networks: 
       - main
 
 networks:
  main:
-    name: "main"  
-    
-
-
+    name: "main"

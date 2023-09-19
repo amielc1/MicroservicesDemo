@@ -6,7 +6,8 @@
       "serviceActions": {
         "mapentitiesservice": "StartDebugging",
         "webapplication1": "StartDebugging",
-        "notificationservice": "StartDebugging"
+        "notificationservice": "StartDebugging",
+        "maprepositoryapi": "StartDebugging"
       }
     }
   }
