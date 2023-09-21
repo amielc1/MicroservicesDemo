@@ -1,13 +1,9 @@
-using MapRepository.Core;
+using MapRepository.Core.Models;
 using MapRepository.Infrastructure.Ioc;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-
 var settings = builder.Configuration.GetSection(nameof(MinIoConfiguration)).Get<MinIoConfiguration>();
-
-
 
 // Add services to the container.
 

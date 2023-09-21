@@ -1,7 +1,7 @@
-using MapEntitiesService.Infrastructure.Ioc;
-using MessageBroker.Infrastructure.Ioc;
 using MapEntitiesService.Core.appsettings;
+using MapEntitiesService.Infrastructure.Ioc;
 using MessageBroker.Core.Models;
+using MessageBroker.Infrastructure.Ioc;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,7 +18,7 @@ builder.Services.AddInfrastructureLibrary(settings);
 builder.Services.AddMessageBrokerPublishLibrary(new PublisherSettings
 {
     HostName = settings.HostName
-}) ;
+});
 
 var app = builder.Build();
 

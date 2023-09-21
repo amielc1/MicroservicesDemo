@@ -46,6 +46,8 @@ services:
       
   maprepositoryapi:
     image: ${DOCKER_REGISTRY-}maprepositoryapi
+    volumes:
+        - C:\Temp\Docker\Data:/app
     environment:
        - MINIO_ACCESS_KEY=t8LryXgHeC2u009qG2ja
        - MINIO_SECRET_KEY=DotuNClm0kRcqtrSNPJZwbcRYApBTykNzACx5onv

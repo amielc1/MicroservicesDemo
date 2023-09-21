@@ -23,7 +23,7 @@ namespace MapEntitiesService.Controllers
         }
 
         [HttpPost]
-        public async  Task<IActionResult> CreateMapEntity(
+        public async Task<IActionResult> CreateMapEntity(
             [FromBody] MapEntityDto mapEntity)
         {
             _logger.LogInformation("from MapEntitiesController, send entity");

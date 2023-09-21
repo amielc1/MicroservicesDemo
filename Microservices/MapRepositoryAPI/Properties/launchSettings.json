@@ -2,13 +2,12 @@
   "profiles": {
     "MapRepositoryAPI": {
       "commandName": "Project",
-      "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "https://localhost:7232;http://localhost:5199"
+      "applicationUrl": "https://localhost:7232;http://localhost:53065"
     },
     "IIS Express": {
       "commandName": "IISExpress",

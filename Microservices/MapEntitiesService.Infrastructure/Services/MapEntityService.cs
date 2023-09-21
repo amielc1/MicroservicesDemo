@@ -13,8 +13,8 @@ namespace MapEntitiesService.Infrastructure.Services
 
         public MapEntityService(ILogger<MapEntityService> logger, IPublisher publishService)
         {
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _publishService = publishService ?? throw new ArgumentNullException(nameof(publishService));
+            _logger = logger;
+            _publishService = publishService;
         }
         public async Task Publish(MapEntityDto entity, string topic)
         {
