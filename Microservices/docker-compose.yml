@@ -23,7 +23,21 @@ services:
        - 9001:9001
     networks: 
        - main 
-
+  
+  seqLoggerService:
+     image: datalust/seq:latest
+     container_name: "SeqLogger"
+     hostname: seqlogger
+     environment:
+        - ACCEPT_EULA=Y
+     ports:
+        - 50002:80
+        - 5341:5341
+     volumes:
+       - c:\Docker\Data\Seq:/data 
+     networks:
+       - main  
+       
   mapentitiesservice:
     image: ${DOCKER_REGISTRY-}mapentitiesservice
     build:

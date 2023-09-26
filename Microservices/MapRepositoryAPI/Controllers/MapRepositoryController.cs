@@ -1,5 +1,6 @@
-﻿using MapRepository.Core.Models;
-using MapRepository.Core.Service;
+﻿using MapRepository.Core.Service;
+using MapRepositoryAPI.DTOs;
+using MapRepositoryAPI.Helpers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MapRepositoryAPI.Controllers;
@@ -8,7 +9,6 @@ namespace MapRepositoryAPI.Controllers;
 [ApiController]
 public class MapRepositoryController : ControllerBase
 {
-
     private readonly IMapRepositoryService _mapRepositoryService;
 
     public MapRepositoryController(IMapRepositoryService mapRepositoryService)
@@ -21,18 +21,18 @@ public class MapRepositoryController : ControllerBase
         => await _mapRepositoryService.GetAllMapsAsync();
 
     [HttpGet(nameof(GetMap))]
-    public async Task<ResultModel> GetMap(string mapname, string pathToSave)
-        => await _mapRepositoryService.GetMap(mapname, pathToSave);
+    public async Task<ResultDto> GetMap(string mapname, string pathToSave)
+        => (await _mapRepositoryService.GetMap(mapname, pathToSave)).ToDto();
 
     [HttpDelete(nameof(DeleteMap))]
-    public async Task<ResultModel> DeleteMap(string mapName)
-        => await _mapRepositoryService.DeleteMap(mapName);
+    public async Task<ResultDto> DeleteMap(string mapName)
+        => (await _mapRepositoryService.DeleteMap(mapName)).ToDto();
 
     [HttpPost(nameof(UploadFile))]
-    public async Task<ResultModel> UploadFile([FromBody] IFormFile file)
-        => await _mapRepositoryService.UploadMap(file.FileName, file.FileName);
+    public async Task<ResultDto> UploadFile([FromBody] IFormFile file)
+        => (await _mapRepositoryService.UploadMap(file.FileName, file.FileName)).ToDto();
 
     [HttpPost(nameof(UploadFileName))]
-    public async Task<ResultModel> UploadFileName(string mapname, string pathToMap)
-        => await _mapRepositoryService.UploadMap(mapname, pathToMap);
+    public async Task<ResultDto> UploadFileName(string mapname, string pathToMap)
+        => (await _mapRepositoryService.UploadMap(mapname, pathToMap)).ToDto();
 }
