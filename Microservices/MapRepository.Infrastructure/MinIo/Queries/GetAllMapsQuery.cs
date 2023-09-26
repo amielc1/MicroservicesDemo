@@ -5,49 +5,48 @@ using Minio;
 using System.Reactive.Linq;
 
 
-namespace MapRepository.Infrastructure.MinIo.Queries
-{
-    internal class GetAllMapsQuery : IGetAllMapsQuery
-    {
-        private readonly MinioClient _minio;
-        private readonly MinIoConfiguration _settings;
-        private readonly ILogger<GetAllMapsQuery> _logger;
+namespace MapRepository.Infrastructure.MinIo.Queries;
 
-        public GetAllMapsQuery(MinIoConfiguration settings, ILogger<GetAllMapsQuery> logger)
+internal class GetAllMapsQuery : IGetAllMapsQuery
+{
+    private readonly MinioClient _minio;
+    private readonly MinIoConfiguration _settings;
+    private readonly ILogger<GetAllMapsQuery> _logger;
+
+    public GetAllMapsQuery(MinIoConfiguration settings, ILogger<GetAllMapsQuery> logger)
+    {
+        _settings = settings;
+        _logger = logger;
+        _minio = new MinioFactory(_settings).CreateMinioClient();
+
+    }
+    public async Task<List<string>> GetAllMaps()
+    {
+        try
         {
-            _settings = settings;
-            _logger = logger;
-            _minio = new MinioFactory(_settings).CreateMinioClient();
+            _logger.LogInformation("Running example for API: ListObjectsAsync");
+            var listArgs = new ListObjectsArgs()
+                .WithBucket(_settings.bucketName)
+                .WithPrefix(null)
+                .WithRecursive(true);
+
+            var observable = _minio.ListObjectsAsync(listArgs);
+
+            var items = await observable
+                .Select(item => item.Key)
+                .Do(itemKey => _logger.LogInformation($"item {itemKey}"))
+                .ToList();
+
+            _logger.LogInformation($"Listed all objects in bucket {_settings.bucketName}");
+            return (List<string>)items;
 
         }
-        public async Task<List<string>> GetAllMaps()
+        catch (Exception e)
         {
-            try
-            {
-                _logger.LogInformation("Running example for API: ListObjectsAsync");
-                var listArgs = new ListObjectsArgs()
-                    .WithBucket(_settings.bucketName)
-                    .WithPrefix(null)
-                    .WithRecursive(true);
-
-                var observable = _minio.ListObjectsAsync(listArgs);
-
-                var items = await observable
-                    .Select(item => item.Key)
-                    .Do(itemKey => _logger.LogInformation($"item {itemKey}"))
-                    .ToList();
-
-                _logger.LogInformation($"Listed all objects in bucket {_settings.bucketName}");
-                return (List<string>)items;
-
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine($"[Bucket]  Exception: {e}");
-                return new List<string>();
-            }
-            
+            Console.WriteLine($"[Bucket]  Exception: {e}");
+            return new List<string>();
         }
 
     }
+
 }

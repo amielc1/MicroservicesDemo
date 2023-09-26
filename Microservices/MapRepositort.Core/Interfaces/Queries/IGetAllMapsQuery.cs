@@ -1,9 +1,8 @@
 ﻿using MapRepository.Core.Models;
 
-namespace MapRepository.Core.Interfaces.Queries
+namespace MapRepository.Core.Interfaces.Queries;
+
+public interface IGetAllMapsQuery
 {
-    public interface IGetAllMapsQuery
-    {
-        Task<List<string>> GetAllMaps();
-    }
+    Task<List<string>> GetAllMaps();
 }

@@ -1,7 +1,6 @@
-﻿namespace MapRepository.Core.Workflow.Tasks
+﻿namespace MapRepository.Core.Workflow.Tasks;
+
+public interface IValidateMapFileExistTask
 {
-    public interface IValidateMapFileExistTask
-    {
-        Task<bool> Validate(string mapname);
-    }
+    Task<bool> Validate(string mapname);
 }

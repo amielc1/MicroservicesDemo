@@ -1,9 +1,8 @@
-﻿namespace MapEntitiesService.Core.Models
+﻿namespace MapEntitiesService.Core.Models;
+
+public class MapEntityDto
 {
-    public class MapEntityDto
-    {
-        public string Tile { get; set; } = string.Empty;
-        public float PointX { get; set; } = float.NaN;
-        public float PointY { get; set; } = float.NaN;
-    }
+    public string Tile { get; set; } = string.Empty;
+    public float PointX { get; set; } = float.NaN;
+    public float PointY { get; set; } = float.NaN;
 }

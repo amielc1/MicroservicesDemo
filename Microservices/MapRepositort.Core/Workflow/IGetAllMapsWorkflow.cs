@@ -1,7 +1,6 @@
-﻿namespace MapRepository.Core.Workflow
+﻿namespace MapRepository.Core.Workflow;
+
+public interface IGetAllMapsWorkflow
 {
-    public interface IGetAllMapsWorkflow
-    {
-        Task<List<string>> GetAllMaps();
-    }
+    Task<List<string>> GetAllMaps();
 }

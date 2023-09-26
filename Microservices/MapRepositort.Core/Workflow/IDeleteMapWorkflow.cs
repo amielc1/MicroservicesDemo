@@ -1,9 +1,8 @@
 ﻿using MapRepository.Core.Models;
 
-namespace MapRepository.Core.Workflow
+namespace MapRepository.Core.Workflow;
+
+public interface IDeleteMapWorkflow
 {
-    public interface IDeleteMapWorkflow
-    {
-        Task<ResultModel> DeleteMap(string mapname);
-    }
+    Task<ResultModel> DeleteMap(string mapname);
 }

@@ -8,10 +8,9 @@ internal class GetAllMapsWorkflow : IGetAllMapsWorkflow
     private readonly IGetAllMapsQuery _getAllMapsQuery;
     public GetAllMapsWorkflow(IGetAllMapsQuery getAllMapsQuery)
     {
-        _getAllMapsQuery = getAllMapsQuery; 
+        _getAllMapsQuery = getAllMapsQuery;
     }
     public async Task<List<string>> GetAllMaps()
-    {
-        return await _getAllMapsQuery.GetAllMaps();
-    }
+      => await _getAllMapsQuery.GetAllMaps();
+
 }

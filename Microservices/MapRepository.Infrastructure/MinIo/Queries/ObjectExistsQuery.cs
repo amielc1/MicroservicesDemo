@@ -2,41 +2,38 @@
 using MapRepository.Core.Models;
 using Microsoft.Extensions.Logging;
 using Minio;
-using Minio.DataModel;
 using Minio.Exceptions;
-using System.Security.AccessControl;
 
-namespace MapRepository.Infrastructure.MinIo.Queries
+namespace MapRepository.Infrastructure.MinIo.Queries;
+
+internal class ObjectExistsQuery : IObjectExistsQuery
 {
-    internal class ObjectExistsQuery : IObjectExistsQuery
+    private readonly MinioClient _minio;
+    private readonly MinIoConfiguration _settings;
+    private readonly ILogger<ObjectExistsQuery> _logger;
+
+    public ObjectExistsQuery(MinIoConfiguration settings, ILogger<ObjectExistsQuery> logger)
     {
-        private readonly MinioClient _minio;
-        private readonly MinIoConfiguration _settings;
-        private readonly ILogger<ObjectExistsQuery> _logger;
+        _settings = settings;
+        _logger = logger;
+        _minio = new MinioFactory(_settings).CreateMinioClient();
+    }
 
-        public ObjectExistsQuery(MinIoConfiguration settings, ILogger<ObjectExistsQuery> logger)
+    public async Task<bool> ObjectExist(string name)
+    {
+        try
         {
-            _settings = settings;
-            _logger = logger;
-            _minio = new MinioFactory(_settings).CreateMinioClient();
+            var getObjectArgs = new GetObjectArgs()
+                .WithBucket(_settings.bucketName)
+                .WithObject(name)
+                .WithCallbackStream(stream => { });
+            _ = await _minio.GetObjectAsync(getObjectArgs).ConfigureAwait(false);
+
+            return true;
         }
-
-        public async Task<bool> ObjectExist(string name)
+        catch (ObjectNotFoundException)
         {
-            try
-            {
-                var getObjectArgs = new GetObjectArgs()
-                    .WithBucket(_settings.bucketName)
-                    .WithObject(name)
-                    .WithCallbackStream(stream => { });
-                _ = await _minio.GetObjectAsync(getObjectArgs).ConfigureAwait(false);
-
-                return true;
-            }
-            catch (ObjectNotFoundException)
-            {
-                return false;
-            }
+            return false;
         }
     }
 }

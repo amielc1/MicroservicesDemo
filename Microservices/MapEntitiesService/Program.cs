@@ -2,7 +2,7 @@ using MapEntitiesService.Core.appsettings;
 using MapEntitiesService.Infrastructure.Ioc;
 using MessageBroker.Core.Models;
 using MessageBroker.Infrastructure.Ioc;
-
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -19,6 +19,10 @@ builder.Services.AddMessageBrokerPublishLibrary(new PublisherSettings
 {
     HostName = settings.HostName
 });
+
+var logger = new LoggerConfiguration().ReadFrom.Configuration(builder.Configuration).Enrich.FromLogContext().CreateLogger();
+builder.Logging.ClearProviders();
+builder.Logging.AddSerilog(logger);
 
 var app = builder.Build();
 

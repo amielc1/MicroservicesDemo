@@ -1,29 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using NotificationService.Core.Interfaces;
 
-namespace NotificationService.Controllers
+namespace NotificationService.Controllers;
+[Route("api/Subscribe")]
+[ApiController]
+public class CommandsController : ControllerBase
 {
-    [Route("api/Subscribe")]
-    [ApiController]
-    public class CommandsController : ControllerBase
+    private readonly ILogger<CommandsController> _logger;
+
+    public CommandsController(ILogger<CommandsController> logger)
     {
-        private readonly INotificationService _notificationService;
-        private readonly ILogger<CommandsController> _logger;
+        _logger = logger;
+    }
 
-        public CommandsController(INotificationService notificationService, ILogger<CommandsController> logger)
-        {
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _notificationService = notificationService ?? throw new ArgumentNullException(nameof(notificationService));
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Subscribe()
-        {
-            _logger.LogInformation("from CommandsController - Subscribe");
-            //await _notificationService.Subscribe("entityQueue", foo);
-            return Ok();
-        }
-
-    
+    [HttpPost]
+    public IActionResult Subscribe()
+    {
+        _logger.LogInformation("from CommandsController - Subscribe");
+        return Ok();
     }
 }
+

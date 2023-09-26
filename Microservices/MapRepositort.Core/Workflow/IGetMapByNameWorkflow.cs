@@ -1,9 +1,8 @@
 ﻿using MapRepository.Core.Models;
 
-namespace MapRepository.Core.Workflow
+namespace MapRepository.Core.Workflow;
+
+public interface IGetMapByNameWorkflow
 {
-    public interface IGetMapByNameWorkflow
-    {
-        Task<ResultModel> GetMap(string mapname, string pathToSave);
-    }
+    Task<ResultModel> GetMap(string mapname, string pathToSave);
 }

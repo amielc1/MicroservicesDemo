@@ -1,9 +1,8 @@
 ﻿using MapRepository.Core.Models;
 
-namespace MapRepository.Core.Interfaces.Commands
+namespace MapRepository.Core.Interfaces.Commands;
+
+public interface IDeleteMapCommand
 {
-    public interface IDeleteMapCommand
-    {
-        Task<ResultModel> DeleteMap(string mapname);
-    }
+    Task<ResultModel> DeleteMap(string mapname);
 }

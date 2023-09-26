@@ -1,9 +1,8 @@
 ﻿using MapRepository.Core.Models;
 
-namespace MapRepository.Core.Interfaces.Commands
+namespace MapRepository.Core.Interfaces.Commands;
+
+public interface IAddMapCommand
 {
-    public interface IAddMapCommand
-    {
-        Task<ResultModel> AddMap(string mapname, string pathToMap);
-    }
+    Task<ResultModel> AddMap(string mapname, string pathToMap);
 }

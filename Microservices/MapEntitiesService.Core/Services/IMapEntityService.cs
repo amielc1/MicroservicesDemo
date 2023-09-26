@@ -1,9 +1,8 @@
 ﻿using MapEntitiesService.Core.Models;
 
-namespace MapEntitiesService.Core.Services
+namespace MapEntitiesService.Core.Services;
+
+public interface IMapEntityService
 {
-    public interface IMapEntityService
-    {
-        Task Publish(MapEntityDto entity, string topic);
-    }
+    Task Publish(MapEntityDto entity, string topic);
 }

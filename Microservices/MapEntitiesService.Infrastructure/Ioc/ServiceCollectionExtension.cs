@@ -3,14 +3,13 @@ using MapEntitiesService.Core.Services;
 using MapEntitiesService.Infrastructure.Services;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace MapEntitiesService.Infrastructure.Ioc
+namespace MapEntitiesService.Infrastructure.Ioc;
+
+public static class ServiceCollectionExtension
 {
-    public static class ServiceCollectionExtension
+    public static void AddInfrastructureLibrary(this IServiceCollection services, MapEntitiesServiceSettings settings)
     {
-        public static void AddInfrastructureLibrary(this IServiceCollection services, MapEntitiesServiceSettings settings)
-        {
-            services.AddSingleton(settings);
-            services.AddScoped<IMapEntityService, MapEntityService>();
-        }
+        services.AddSingleton(settings);
+        services.AddScoped<IMapEntityService, MapEntityService>();
     }
 }

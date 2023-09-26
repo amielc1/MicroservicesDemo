@@ -1,7 +1,6 @@
-﻿namespace MapRepository.Core.Interfaces.Queries
+﻿namespace MapRepository.Core.Interfaces.Queries;
+
+public interface IObjectExistsQuery
 {
-    public interface IObjectExistsQuery
-    {
-        Task<bool> ObjectExist(string name);
-    }
+    Task<bool> ObjectExist(string name);
 }
