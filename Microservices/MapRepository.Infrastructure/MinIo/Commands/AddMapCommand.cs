@@ -3,6 +3,7 @@ using MapRepository.Core.Interfaces.Commands;
 using MapRepository.Core.Models;
 using Microsoft.Extensions.Logging;
 using Minio;
+using System.Text;
 
 namespace MapRepository.Infrastructure.MinIo.Commands;
 internal class AddMapCommand : IAddMapCommand
@@ -24,9 +25,14 @@ internal class AddMapCommand : IAddMapCommand
         var mapres = new ResultModel();
         try
         {
-            ReadOnlyMemory<byte> bs = await File.ReadAllBytesAsync(pathToMap).ConfigureAwait(false);
-            _logger.LogInformation("Running example for API: PutObjectAsync");
-            using var filestream = bs.AsStream();
+            var bytes = Encoding.ASCII.GetBytes(mapname);
+            MemoryStream stream = new MemoryStream(bytes);
+            //ReadOnlyMemory<byte> bs = await File.ReadAllBytesAsync(pathToMap).ConfigureAwait(false);
+            //_logger.LogInformation("Running example for API: PutObjectAsync");
+            //using var filestream = bs.AsStream();
+
+
+            using var filestream = stream;
 
             var fileInfo = new FileInfo(pathToMap);
             var metaData = new Dictionary<string, string>

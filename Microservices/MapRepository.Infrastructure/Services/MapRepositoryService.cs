@@ -27,6 +27,7 @@ internal class MapRepositoryService : IMapRepositoryService
         => await _deleteMapWorkflow.DeleteMap(mapname);
 
     public async Task<List<string>> GetAllMapsAsync()
+
         => await _getAllMapsWorkflow.GetAllMaps();
 
     public async Task<ResultModel> GetMap(string mapname, string pathToSave)
@@ -35,4 +36,6 @@ internal class MapRepositoryService : IMapRepositoryService
     public async Task<ResultModel> UploadMap(string mapname, string pathToMap)
         => await _uploadMapWorkflow.UploadMap(mapname, pathToMap);
 
+    public async Task<ResultModel> UploadMapStr(string mapname, string mapfile)
+        => await _uploadMapWorkflow.UploadMap(mapname, mapfile);
 }

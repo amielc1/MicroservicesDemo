@@ -26,23 +26,24 @@ internal class UploadMapWorkflow : IUploadMapWorkflow
 
     public async Task<ResultModel> UploadMap(string mapname, string pathToMap)
     {
-        var validateMapFileExistTask = await _validateMapFileExistTask.Validate(mapname);
-        if (!validateMapFileExistTask)
-        {
-            return new ResultModel { Success = false, ErrorMessage = "Map already exist" };
-        }
+       
+        //var validateMapFileExistTask = await _validateMapFileExistTask.Validate(mapname);
+        //if (!validateMapFileExistTask)
+        //{
+        //    return new ResultModel { Success = false, ErrorMessage = "Map already exist" };
+        //}
 
-        var validateMapFileTask = _validateMapFileTask.Validate(mapname);
-        if (!validateMapFileTask)
-        {
-            return new ResultModel { Success = false, ErrorMessage = "Failed to validate map file" };
-        }
+        //var validateMapFileTask = _validateMapFileTask.Validate(mapname);
+        //if (!validateMapFileTask)
+        //{
+        //    return new ResultModel { Success = false, ErrorMessage = "Failed to validate map file" };
+        //}
 
-        var validateMapNameTask = _validateMapNameTask.Validate(mapname);
-        if (!validateMapNameTask)
-        {
-            return new ResultModel { Success = false, ErrorMessage = "Failed to validate map name" };
-        }
+        //var validateMapNameTask = _validateMapNameTask.Validate(mapname);
+        //if (!validateMapNameTask)
+        //{
+        //    return new ResultModel { Success = false, ErrorMessage = "Failed to validate map name" };
+        //}
 
         var addmapResult = await _addMapCommand.AddMap(mapname, pathToMap);
         if (!addmapResult.Success)

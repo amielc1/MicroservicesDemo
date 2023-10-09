@@ -34,10 +34,11 @@ internal class GetAllMapsQuery : IGetAllMapsQuery
 
             var items = await observable
                 .Select(item => item.Key)
-                .Do(itemKey => _logger.LogInformation($"item {itemKey}"))
+                .Do(itemKey => _logger.LogInformation($"item {itemKey}"),
+                    ex => _logger.LogError($"OnError: {ex}"),
+                    () => _logger.LogInformation($"Listed all objects in bucket {_settings.bucketName}"))
                 .ToList();
-
-            _logger.LogInformation($"Listed all objects in bucket {_settings.bucketName}");
+             
             return (List<string>)items;
 
         }

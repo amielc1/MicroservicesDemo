@@ -11,12 +11,5 @@ public class CommandsController : ControllerBase
     {
         _logger = logger;
     }
-
-    [HttpPost]
-    public IActionResult Subscribe()
-    {
-        _logger.LogInformation("from CommandsController - Subscribe");
-        return Ok();
-    }
 }
 

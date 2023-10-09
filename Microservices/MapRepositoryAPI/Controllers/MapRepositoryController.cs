@@ -2,6 +2,7 @@
 using MapRepositoryAPI.DTOs;
 using MapRepositoryAPI.Helpers;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections;
 
 namespace MapRepositoryAPI.Controllers;
 
@@ -29,8 +30,17 @@ public class MapRepositoryController : ControllerBase
         => (await _mapRepositoryService.DeleteMap(mapName)).ToDto();
 
     [HttpPost(nameof(UploadFile))]
-    public async Task<ResultDto> UploadFile([FromBody] IFormFile file)
-        => (await _mapRepositoryService.UploadMap(file.FileName, file.FileName)).ToDto();
+    public async Task<ResultDto> UploadFile(IFormFile file)
+    {
+        //convert file to binary as string 
+        var arr = new byte[file.Length];
+        var stream = file.OpenReadStream();
+        await stream.ReadAsync(arr);
+        var fileasstring = Convert.ToBase64String(arr);
+        //send string file to service (docker)
+        return (await _mapRepositoryService.UploadMap(file.FileName, fileasstring)).ToDto();
+    }
+
 
     [HttpPost(nameof(UploadFileName))]
     public async Task<ResultDto> UploadFileName(string mapname, string pathToMap)

@@ -11,7 +11,7 @@ internal class RabbitMQSubscriber : ISubscriber
 {
     private readonly ILogger<RabbitMQPublisher> _logger;
     private readonly SubscriberSettings _settings;
-    IModel channel;
+    private IModel _channel;
 
     public RabbitMQSubscriber(ILogger<RabbitMQPublisher> logger, SubscriberSettings settings)
     {
@@ -24,9 +24,9 @@ internal class RabbitMQSubscriber : ISubscriber
         _logger.LogInformation("Register {calss} to Topic {topic}, func : {function} (RabbitMQ)", nameof(RabbitMQSubscriber), topic, OnMessageArrived.Method);
         var factory = new ConnectionFactory { HostName = _settings.HostName };
         var connection = factory.CreateConnection();
-        channel = connection.CreateModel();
+        _channel = connection.CreateModel();
 
-        channel.QueueDeclare(queue: topic,
+        _channel.QueueDeclare(queue: topic,
                durable: false,
                exclusive: false,
                autoDelete: false,
@@ -34,7 +34,7 @@ internal class RabbitMQSubscriber : ISubscriber
 
         _logger.LogInformation(" [*] Waiting for messages.");
 
-        var consumer = new EventingBasicConsumer(channel);
+        var consumer = new EventingBasicConsumer(_channel);
         consumer.Received += (model, ea) =>
         {
             var body = ea.Body.ToArray();
@@ -43,7 +43,7 @@ internal class RabbitMQSubscriber : ISubscriber
             OnMessageArrived(message);
         };
 
-        channel.BasicConsume(queue: topic,
+        _channel.BasicConsume(queue: topic,
                              autoAck: true,
                              consumer: consumer);
 
