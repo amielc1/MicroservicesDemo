@@ -4,7 +4,6 @@ using Microsoft.Extensions.Logging;
 using Minio;
 using System.Reactive.Linq;
 
-
 namespace MapRepository.Infrastructure.MinIo.Queries;
 
 internal class GetAllMapsQuery : IGetAllMapsQuery
@@ -20,13 +19,13 @@ internal class GetAllMapsQuery : IGetAllMapsQuery
         _minio = new MinioFactory(_settings).CreateMinioClient();
 
     }
-    public async Task<List<string>> GetAllMaps()
+    public async Task<List<string>> GetAllMaps(string bucket)
     {
         try
         {
             _logger.LogInformation("Running example for API: ListObjectsAsync");
             var listArgs = new ListObjectsArgs()
-                .WithBucket(_settings.bucketName)
+                .WithBucket(bucket)
                 .WithPrefix(null)
                 .WithRecursive(true);
 
@@ -36,7 +35,7 @@ internal class GetAllMapsQuery : IGetAllMapsQuery
                 .Select(item => item.Key)
                 .Do(itemKey => _logger.LogInformation($"item {itemKey}"),
                     ex => _logger.LogError($"OnError: {ex}"),
-                    () => _logger.LogInformation($"Listed all objects in bucket {_settings.bucketName}"))
+                    () => _logger.LogInformation($"Listed all objects in bucket {_settings.mapRepositoryBucketName}"))
                 .ToList();
              
             return (List<string>)items;

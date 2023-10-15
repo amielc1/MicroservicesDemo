@@ -2,5 +2,5 @@
 
 public interface IObjectExistsQuery
 {
-    Task<bool> ObjectExist(string name);
+    Task<bool> ObjectExist(string name,string bucket);
 }

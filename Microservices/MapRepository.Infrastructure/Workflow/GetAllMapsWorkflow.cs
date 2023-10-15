@@ -11,6 +11,6 @@ internal class GetAllMapsWorkflow : IGetAllMapsWorkflow
         _getAllMapsQuery = getAllMapsQuery;
     }
     public async Task<List<string>> GetAllMaps()
-      => await _getAllMapsQuery.GetAllMaps();
+      => await _getAllMapsQuery.GetAllMaps("maprepositorybucket");
 
 }

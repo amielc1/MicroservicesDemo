@@ -12,7 +12,9 @@ internal class DeleteMapWorkflow : IDeleteMapWorkflow
     {
         _deleteMapCommand = deleteMapCommand;
     }
+
+    //TODO pass bucketname 
     public async Task<ResultModel> DeleteMap(string mapname)
-        => await _deleteMapCommand.DeleteMap(mapname);
+        => await _deleteMapCommand.DeleteMap(mapname,"BUCKET");
 
 }

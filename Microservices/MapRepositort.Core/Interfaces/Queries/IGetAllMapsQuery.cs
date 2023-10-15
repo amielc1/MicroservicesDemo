@@ -4,5 +4,5 @@ namespace MapRepository.Core.Interfaces.Queries;
 
 public interface IGetAllMapsQuery
 {
-    Task<List<string>> GetAllMaps();
+    Task<List<string>> GetAllMaps(string bucket);
 }

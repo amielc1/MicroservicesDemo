@@ -19,12 +19,12 @@ internal class ObjectExistsQuery : IObjectExistsQuery
         _minio = new MinioFactory(_settings).CreateMinioClient();
     }
 
-    public async Task<bool> ObjectExist(string name)
+    public async Task<bool> ObjectExist(string name, string bucket)
     {
         try
         {
             var getObjectArgs = new GetObjectArgs()
-                .WithBucket(_settings.bucketName)
+                .WithBucket(bucket)
                 .WithObject(name)
                 .WithCallbackStream(stream => { });
             _ = await _minio.GetObjectAsync(getObjectArgs).ConfigureAwait(false);

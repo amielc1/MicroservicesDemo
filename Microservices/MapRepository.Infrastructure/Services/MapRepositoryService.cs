@@ -1,6 +1,8 @@
-﻿using MapRepository.Core.Models;
+﻿using MapRepository.Core.Interfaces.Commands;
+using MapRepository.Core.Models;
 using MapRepository.Core.Service;
 using MapRepository.Core.Workflow;
+using MapRepository.Infrastructure.Workflow;
 
 namespace MapRepository.Infrastructure.Services;
 
@@ -27,15 +29,8 @@ internal class MapRepositoryService : IMapRepositoryService
         => await _deleteMapWorkflow.DeleteMap(mapname);
 
     public async Task<List<string>> GetAllMapsAsync()
-
         => await _getAllMapsWorkflow.GetAllMaps();
 
-    public async Task<ResultModel> GetMap(string mapname, string pathToSave)
-      => await _getMapByNameWorkflow.GetMap(mapname, pathToSave);
-
-    public async Task<ResultModel> UploadMap(string mapname, string pathToMap)
-        => await _uploadMapWorkflow.UploadMap(mapname, pathToMap);
-
-    public async Task<ResultModel> UploadMapStr(string mapname, string mapfile)
-        => await _uploadMapWorkflow.UploadMap(mapname, mapfile);
+    public async Task<ResultModel> UploadMap(string mapname, Stream mapstream)
+         => await _uploadMapWorkflow.UploadMap(mapname, mapstream); 
 }

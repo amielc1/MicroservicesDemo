@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MapRepositort.Core\MapRepository.Core.csproj" />
+    <ProjectReference Include="..\MessageBroker.Core\MessageBroker.Core.csproj" />
   </ItemGroup>
 
 </Project>

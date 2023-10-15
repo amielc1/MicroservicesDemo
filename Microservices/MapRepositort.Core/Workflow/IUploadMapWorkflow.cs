@@ -4,5 +4,5 @@ namespace MapRepository.Core.Workflow;
 
 public interface IUploadMapWorkflow
 {
-    Task<ResultModel> UploadMap(string mapname, string pathToMap);
+    Task<ResultModel> UploadMap(string mapname, Stream mapstream);
 }

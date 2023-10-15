@@ -7,52 +7,32 @@ namespace MapRepository.Infrastructure.Workflow;
 
 internal class UploadMapWorkflow : IUploadMapWorkflow
 {
-    private readonly IValidateMapFileTask _validateMapFileTask;
+    private readonly IUploadMapFileTask _uploadMapFileTask;
     private readonly IValidateMapNameTask _validateMapNameTask;
     private readonly IValidateMapFileExistTask _validateMapFileExistTask;
     private readonly IAddMapCommand _addMapCommand;
 
     public UploadMapWorkflow(
-        IValidateMapFileTask validateMapFileTask,
+        IUploadMapFileTask uploadMapFileTask,
         IValidateMapNameTask validateMapNameTask,
         IValidateMapFileExistTask validateMapFileExistTask,
         IAddMapCommand addMapCommand)
     {
-        _validateMapFileTask = validateMapFileTask;
+        _uploadMapFileTask = uploadMapFileTask;
         _validateMapNameTask = validateMapNameTask;
         _validateMapFileExistTask = validateMapFileExistTask;
         _addMapCommand = addMapCommand;
     }
 
-    public async Task<ResultModel> UploadMap(string mapname, string pathToMap)
+    public async Task<ResultModel> UploadMap(string mapname, Stream mapstream)
     {
-       
-        //var validateMapFileExistTask = await _validateMapFileExistTask.Validate(mapname);
-        //if (!validateMapFileExistTask)
-        //{
-        //    return new ResultModel { Success = false, ErrorMessage = "Map already exist" };
-        //}
+        var mapUploaded = await _uploadMapFileTask.UploadMap(mapname, mapstream);
 
-        //var validateMapFileTask = _validateMapFileTask.Validate(mapname);
-        //if (!validateMapFileTask)
-        //{
-        //    return new ResultModel { Success = false, ErrorMessage = "Failed to validate map file" };
-        //}
-
-        //var validateMapNameTask = _validateMapNameTask.Validate(mapname);
-        //if (!validateMapNameTask)
-        //{
-        //    return new ResultModel { Success = false, ErrorMessage = "Failed to validate map name" };
-        //}
-
-        var addmapResult = await _addMapCommand.AddMap(mapname, pathToMap);
-        if (!addmapResult.Success)
+        if (!mapUploaded)
         {
             return new ResultModel { Success = false, ErrorMessage = "Failed to add map" };
         }
 
-        //publish new map uploaded to notification service. 
-
         return new ResultModel { Success = true, ErrorMessage = "Workflow Passed " };
-    }
+    } 
 }

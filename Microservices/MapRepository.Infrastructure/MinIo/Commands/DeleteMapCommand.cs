@@ -18,20 +18,20 @@ internal class DeleteMapCommand : IDeleteMapCommand
         _logger = logger;
     }
 
-    public async Task<ResultModel> DeleteMap(string mapname)
+    public async Task<ResultModel> DeleteMap(string mapname,string bucket)
     {
         var mapres = new ResultModel();
         try
         {
             var args = new RemoveObjectArgs()
-                .WithBucket(_settings.bucketName)
+                .WithBucket(bucket)
                 .WithObject(mapname);
 
             _logger.LogInformation("Running example for API: RemoveObjectAsync");
             await _minio.RemoveObjectAsync(args).ConfigureAwait(false);
-            _logger.LogInformation($"Removed object {mapname} from bucket {_settings.bucketName}  successfully");
+            _logger.LogInformation($"Removed object {mapname} from bucket {bucket}  successfully");
             mapres.Success = true;
-            mapres.ErrorMessage = $"Removed object {mapname} from bucket {_settings.bucketName}  successfully";
+            mapres.ErrorMessage = $"Removed object {mapname} from bucket {bucket}  successfully";
         }
         catch (Exception e)
         {

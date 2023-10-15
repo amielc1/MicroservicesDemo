@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MapRepository.Infrastructure\MapRepository.Infrastructure.csproj" />
+    <ProjectReference Include="..\MessageBroker.Infrastructure\MessageBroker.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

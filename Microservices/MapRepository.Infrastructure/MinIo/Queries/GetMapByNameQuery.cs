@@ -19,19 +19,19 @@ internal class GetMapByNameQuery : IGetMapByNameQuery
     }
 
     public async Task<ResultModel> GetMap(string mapname, string pathToSave)
-    {
+    {//todo check if we need this api 
         var mapres = new ResultModel();
         try
         {
             _logger.LogInformation("Running example for API: GetObjectAsync");
             var args = new GetObjectArgs()
-            .WithBucket(_settings.bucketName)
+            .WithBucket(_settings.mapRepositoryBucketName)
                 .WithObject(mapname)
                 .WithFile(pathToSave);
             var stat = await _minio.GetObjectAsync(args).ConfigureAwait(false);
 
-            _logger.LogInformation($"Downloaded the file {mapname} in bucket {_settings.bucketName}");
-            _logger.LogInformation($"Stat details of object {mapname} in bucket {_settings.bucketName}\n" + stat);
+            _logger.LogInformation($"Downloaded the file {mapname} in bucket {_settings.mapRepositoryBucketName}");
+            _logger.LogInformation($"Stat details of object {mapname} in bucket {_settings.mapRepositoryBucketName}\n" + stat);
             mapres.Success = true;
         }
         catch (Exception e)

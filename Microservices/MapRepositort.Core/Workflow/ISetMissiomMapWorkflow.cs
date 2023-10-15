@@ -4,5 +4,5 @@ namespace MapRepository.Core.Workflow;
 
 public interface ISetMissiomMapWorkflow
 {
-    Task<ResultModel> SetMissiomMap(string missionMap);
+    Task<ResultModel> SetMissiomMap(string mapname);
 }
