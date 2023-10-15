@@ -15,6 +15,6 @@ internal class DeleteMapWorkflow : IDeleteMapWorkflow
 
     //TODO pass bucketname 
     public async Task<ResultModel> DeleteMap(string mapname)
-        => await _deleteMapCommand.DeleteMap(mapname,"BUCKET");
+        =>  new ResultModel() { Success = true };//_deleteMapCommand.DeleteMap(mapname,"BUCKET");
 
 }

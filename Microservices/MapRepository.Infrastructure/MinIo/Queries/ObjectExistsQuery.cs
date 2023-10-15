@@ -1,5 +1,5 @@
-﻿using MapRepository.Core.Interfaces.Queries;
-using MapRepository.Core.Models;
+﻿using MapRepository.Core.AppSettings;
+using MapRepository.Core.Interfaces.Queries;
 using Microsoft.Extensions.Logging;
 using Minio;
 using Minio.Exceptions;
@@ -28,7 +28,6 @@ internal class ObjectExistsQuery : IObjectExistsQuery
                 .WithObject(name)
                 .WithCallbackStream(stream => { });
             _ = await _minio.GetObjectAsync(getObjectArgs).ConfigureAwait(false);
-
             return true;
         }
         catch (ObjectNotFoundException)

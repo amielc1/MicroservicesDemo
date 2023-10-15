@@ -1,4 +1,4 @@
-﻿using MapRepository.Core.Models;
+﻿using MapRepository.Core.AppSettings;
 using Minio;
 
 namespace MapRepository.Infrastructure.MinIo;

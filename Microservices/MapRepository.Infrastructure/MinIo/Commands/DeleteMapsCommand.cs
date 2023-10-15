@@ -1,6 +1,6 @@
-﻿using MapRepository.Core.Interfaces.Commands;
+﻿using MapRepository.Core.AppSettings;
+using MapRepository.Core.Interfaces.Commands;
 using MapRepository.Core.Interfaces.Queries;
-using MapRepository.Core.Models;
 //using Microsoft.Extensions.Logging;
 using Minio;
 using System.Reactive.Linq;
@@ -27,6 +27,7 @@ namespace MapRepository.Infrastructure.MinIo.Commands
             List<Tuple<string, string>> objectsVersionsList = null;
             try
             { 
+                //Todo Command cant use another query.  use minio command in order to remove all objects from bucket.
                 var currentMaps = await _getAllMapsQuery.GetAllMaps(bucketName);
                 foreach (var m in currentMaps)
                 {

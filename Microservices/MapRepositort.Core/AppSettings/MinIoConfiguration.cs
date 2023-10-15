@@ -1,4 +1,4 @@
-﻿namespace MapRepository.Core.Models
+﻿namespace MapRepository.Core.AppSettings
 {
     public class MinIoConfiguration
     {

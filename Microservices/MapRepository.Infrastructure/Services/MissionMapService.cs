@@ -16,8 +16,5 @@ internal class MissionMapService : IMissionMapService
     public Task<ResultModel> SetMissiionMap(string mapname)
       => _setMissiomMapWorkflow.SetMissiomMap(mapname);
 
-    public Task<ResultModel> SubscribeMissionMap()
-    {
-        throw new NotImplementedException();
-    }
+   
 }

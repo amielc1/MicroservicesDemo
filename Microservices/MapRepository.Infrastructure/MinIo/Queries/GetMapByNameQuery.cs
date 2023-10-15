@@ -1,4 +1,5 @@
-﻿using MapRepository.Core.Interfaces.Queries;
+﻿using MapRepository.Core.AppSettings;
+using MapRepository.Core.Interfaces.Queries;
 using MapRepository.Core.Models;
 using Microsoft.Extensions.Logging;
 using Minio;
@@ -18,20 +19,20 @@ internal class GetMapByNameQuery : IGetMapByNameQuery
         _minio = new MinioFactory(_settings).CreateMinioClient();
     }
 
-    public async Task<ResultModel> GetMap(string mapname, string pathToSave)
-    {//todo check if we need this api 
+    public async Task<ResultModel> GetMap(string mapname, string bucket, string pathToSave)
+    { 
         var mapres = new ResultModel();
         try
         {
             _logger.LogInformation("Running example for API: GetObjectAsync");
             var args = new GetObjectArgs()
-            .WithBucket(_settings.mapRepositoryBucketName)
+                .WithBucket(bucket)
                 .WithObject(mapname)
                 .WithFile(pathToSave);
             var stat = await _minio.GetObjectAsync(args).ConfigureAwait(false);
 
-            _logger.LogInformation($"Downloaded the file {mapname} in bucket {_settings.mapRepositoryBucketName}");
-            _logger.LogInformation($"Stat details of object {mapname} in bucket {_settings.mapRepositoryBucketName}\n" + stat);
+            _logger.LogInformation($"Downloaded the file {mapname} in bucket {bucket}");
+            _logger.LogInformation($"Stat details of object {mapname} in bucket {bucket}\n" + stat);
             mapres.Success = true;
         }
         catch (Exception e)

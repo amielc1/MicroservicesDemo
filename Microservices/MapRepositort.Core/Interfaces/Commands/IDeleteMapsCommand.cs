@@ -2,5 +2,5 @@
 
 public interface IDeleteMapsCommand
 {
-    Task<bool> DeleteMaps(string bucketName, List<string> maps = null);
+    Task<bool> DeleteMaps(string repository, List<string> maps = null);
 }

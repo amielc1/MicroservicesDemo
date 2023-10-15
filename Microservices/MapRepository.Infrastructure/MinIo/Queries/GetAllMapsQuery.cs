@@ -1,5 +1,5 @@
-﻿using MapRepository.Core.Interfaces.Queries;
-using MapRepository.Core.Models;
+﻿using MapRepository.Core.AppSettings;
+using MapRepository.Core.Interfaces.Queries;
 using Microsoft.Extensions.Logging;
 using Minio;
 using System.Reactive.Linq;

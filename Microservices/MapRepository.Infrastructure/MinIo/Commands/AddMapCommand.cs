@@ -1,4 +1,5 @@
-﻿using MapRepository.Core.Interfaces.Commands;
+﻿using MapRepository.Core.AppSettings;
+using MapRepository.Core.Interfaces.Commands;
 using MapRepository.Core.Models;
 using Microsoft.Extensions.Logging;
 using Minio;

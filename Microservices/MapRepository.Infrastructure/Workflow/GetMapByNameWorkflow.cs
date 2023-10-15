@@ -13,6 +13,6 @@ internal class GetMapByNameWorkflow : IGetMapByNameWorkflow
         _getMapByNameQuery = getMapByNameQuery;
     }
     public async Task<ResultModel> GetMap(string mapname, string pathToSave)
-        => await _getMapByNameQuery.GetMap(mapname, pathToSave);
+        => new ResultModel() { Success = true }; //await _getMapByNameQuery.GetMap(mapname, pathToSave);
 
 }

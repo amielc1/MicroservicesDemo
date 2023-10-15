@@ -1,5 +1,5 @@
-﻿using MapRepository.Core.Interfaces.Commands;
-using MapRepository.Core.Models;
+﻿using MapRepository.Core.AppSettings;
+using MapRepository.Core.Interfaces.Commands;
 using MapRepository.Core.Workflow.Tasks.MissionMapTasks;
 
 namespace MapRepository.Infrastructure.Workflow.Tasks.MissionMapTasks;
@@ -14,7 +14,6 @@ internal class CopySelectedMapTask : ICopySelectedMapTask
     {
         _copyMapCommand = copyMapCommand;
         _settings = settings;
-
     }
 
     public async Task<bool> CopySelectedMap(string mapname)

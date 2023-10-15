@@ -4,5 +4,5 @@ namespace MapRepository.Core.Interfaces.Commands;
 
 public interface ICopyMapCommand
 {
-    Task<ResultModel> CopyMap(string mapname, string fromBucket, string toBucket);
+    Task<ResultModel> CopyMap(string mapname, string fromRepository, string toRepository);
 }

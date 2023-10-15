@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MapRepositoryAPI.Controllers;
 
-
 [Route("api/MissionMap")]
 [ApiController]
 public class MissionMapController : Controller
@@ -20,7 +19,4 @@ public class MissionMapController : Controller
     public async Task<ResultDto> SetMissionMap(string mapname)
         => (await _missionMapService.SetMissiionMap(mapname)).ToDto();
 
-    [HttpPost(nameof(SubscribeMissionMap))]
-    public async Task<ResultDto> SubscribeMissionMap()
-        => (await _missionMapService.SubscribeMissionMap()).ToDto();
 }
