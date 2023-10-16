@@ -5,4 +5,5 @@ namespace NotificationService.Core.Interfaces;
 public interface INotifyer
 {
     Task ReciveMapEntity(MapEntityDto entity);
+    Task MissionMapChanged(string mapname);
 }

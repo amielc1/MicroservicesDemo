@@ -39,7 +39,7 @@ internal class RabbitMQSubscriber : ISubscriber
         {
             var body = ea.Body.ToArray();
             var message = Encoding.UTF8.GetString(body);
-            Console.WriteLine($" [x] Received {message}");
+            _logger.LogInformation($" [x] Received {message}");
             OnMessageArrived(message);
         };
 

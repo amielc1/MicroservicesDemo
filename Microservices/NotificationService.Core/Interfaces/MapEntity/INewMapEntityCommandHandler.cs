@@ -1,4 +1,4 @@
-﻿namespace NotificationService.Core.Interfaces
+﻿namespace NotificationService.Core.Interfaces.MapEntity
 {
     public interface INewMapEntityCommandHandler
     {

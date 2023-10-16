@@ -6,11 +6,16 @@ namespace NotificationService.Hubs;
 
 public class NotifyerHub : INotifyer
 {
-    private readonly IHubContext<NotificationHub, IMapEntityClientNames> _notificationHub;
+    private readonly IHubContext<NotificationHub, IClientNames> _notificationHub;
 
-    public NotifyerHub(IHubContext<NotificationHub, IMapEntityClientNames> notificationHub)
+    public NotifyerHub(IHubContext<NotificationHub, IClientNames> notificationHub)
     {
         _notificationHub = notificationHub;
+    }
+
+    public async Task MissionMapChanged(string mapname)
+    {
+        await _notificationHub.Clients.All.MissionMapChanged(mapname);
     }
 
     public async Task ReciveMapEntity(MapEntityDto entity)

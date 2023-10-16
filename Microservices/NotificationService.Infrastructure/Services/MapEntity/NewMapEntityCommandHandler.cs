@@ -1,8 +1,9 @@
 ﻿using MapEntitiesService.Core.Models;
 using NotificationService.Core.Interfaces;
+using NotificationService.Core.Interfaces.MapEntity;
 using System.Text.Json;
 
-namespace NotificationService.Infrastructure.Services;
+namespace NotificationService.Infrastructure.Services.MapEntity;
 
 internal class NewMapEntityCommandHandler : INewMapEntityCommandHandler
 {
@@ -10,7 +11,7 @@ internal class NewMapEntityCommandHandler : INewMapEntityCommandHandler
 
     public NewMapEntityCommandHandler(INotifyer notifyer)
     {
-        _notifyer = notifyer;   
+        _notifyer = notifyer;
     }
 
     async void INewMapEntityCommandHandler.ReciveMapEntity(string mapEntity)

@@ -1,32 +1,40 @@
 ﻿using MessageBroker.Core.Models;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using NotificationService.Core.Interfaces;
+using NotificationService.Core.Interfaces.MapEntity;
+using NotificationService.Core.Interfaces.MissionMap;
 
 namespace NotificationService.Infrastructure.Services;
 
 internal class NotificationBackgroundService : BackgroundService
 {
-    private readonly ILogger<NotificationService> _logger;
-    private readonly INotificationService _notificationService;
+    private readonly ILogger<NotificationBackgroundService> _logger;
+    private readonly IMapEntitySubscribeService _mapEntitySubscribeService;
     private readonly INewMapEntityCommandHandler _newMapEntityCommandHandler;
+    private readonly IMissionMapChangedCommandHandler _newMissionMapCommandHandler;
+    private readonly IMissionMapSubscribeService _missionMapSubscribeService;
     private readonly Settings _settings;
 
     public NotificationBackgroundService(
-        ILogger<NotificationService> logger,
-        INotificationService notificationService,
+        ILogger<NotificationBackgroundService> logger,
+        IMapEntitySubscribeService mapEntitySubscribeService,
         INewMapEntityCommandHandler newMapEntityCommandHandler,
+        IMissionMapSubscribeService missionMapSubscribeService,
+        IMissionMapChangedCommandHandler newMissionMapCommandHandler,   
         Settings settings)
     {
         _logger = logger;
         _settings = settings;
-        _notificationService = notificationService;
+        _mapEntitySubscribeService = mapEntitySubscribeService;
         _newMapEntityCommandHandler = newMapEntityCommandHandler;
+        _missionMapSubscribeService = missionMapSubscribeService;
+        _newMissionMapCommandHandler = newMissionMapCommandHandler;
     }
 
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        _notificationService.Subscribe(_settings.TopicName, _newMapEntityCommandHandler.ReciveMapEntity);
+        _mapEntitySubscribeService.Subscribe(_settings.MapEntitiesTopic, _newMapEntityCommandHandler.ReciveMapEntity);
+        _missionMapSubscribeService.Subscribe(_settings.MissonMapTopic, _newMissionMapCommandHandler.MissionMapChanged);
         return Task.CompletedTask;
     }
 
