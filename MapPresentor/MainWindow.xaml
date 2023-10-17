@@ -7,6 +7,19 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Image x:Name="img_map"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="65*"/>
+            <RowDefinition Height="369*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="161*"/>
+            <ColumnDefinition Width="639*"/>
+        </Grid.ColumnDefinitions>
+        <Image x:Name="img_map" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+        <ListBox x:Name="lst_maps" Margin="0,53,0,0" Grid.RowSpan="2"  />
+        <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="0">
+            <Button x:Name="btn_set" Content="Set" Margin="5" Click="btn_set_Click"/>
+            <Button x:Name="btn_del" Content="Delete" Margin="5" Click="btn_del_Click"/>
+        </StackPanel>
     </Grid>
 </Window>

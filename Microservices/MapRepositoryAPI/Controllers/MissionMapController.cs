@@ -17,7 +17,7 @@ public class MissionMapController : Controller
     }
 
     [HttpPost(nameof(SetMissionMap))]
-    public async Task<ResultDto> SetMissionMap(string mapname)
+    public async Task<ResultDto> SetMissionMap([FromBody] string mapname)
         => (await _missionMapService.SetMissiionMap(mapname)).ToDto();
 
     [HttpGet(nameof(GetCurrentMissionMap))]

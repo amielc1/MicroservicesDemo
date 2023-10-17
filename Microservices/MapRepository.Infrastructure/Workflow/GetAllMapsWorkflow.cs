@@ -1,16 +1,16 @@
-﻿using MapRepository.Core.Interfaces.Queries;
-using MapRepository.Core.Workflow;
+﻿using MapRepository.Core.Workflow;
+using MapRepository.Core.Workflow.Tasks.MapRepositoryTasks;
 
 namespace MapRepository.Infrastructure.Workflow;
 
 internal class GetAllMapsWorkflow : IGetAllMapsWorkflow
 {
-    private readonly IGetAllMapsQuery _getAllMapsQuery;
-    public GetAllMapsWorkflow(IGetAllMapsQuery getAllMapsQuery)
+    private readonly IGetAllMapsTask _getAllMapsTask;
+    public GetAllMapsWorkflow(IGetAllMapsTask getAllMapsTask)
     {
-        _getAllMapsQuery = getAllMapsQuery;
+        _getAllMapsTask = getAllMapsTask;
     }
     public async Task<List<string>> GetAllMaps()
-      => new List<string>();//_getAllMapsQuery.GetAllMaps("maprepositorybucket");
+      => await _getAllMapsTask.GetAllMaps();
 
 }

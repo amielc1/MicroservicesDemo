@@ -18,10 +18,13 @@ public class MapRepositoryController : ControllerBase
 
     [HttpGet(nameof(GetAllMaps))]
     public async Task<List<string>> GetAllMaps()
-        => await _mapRepositoryService.GetAllMapsAsync();
+    {
+        List<string> maps = await _mapRepositoryService.GetAllMapsAsync();
+        return maps;    
+    } 
 
-    [HttpDelete(nameof(DeleteMap))]
-    public async Task<ResultDto> DeleteMap(string mapName)
+    [HttpPost(nameof(DeleteMap))]
+    public async Task<ResultDto> DeleteMap([FromBody] string mapName)
         => (await _mapRepositoryService.DeleteMap(mapName)).ToDto();
 
     [HttpPost(nameof(UploadFile))]

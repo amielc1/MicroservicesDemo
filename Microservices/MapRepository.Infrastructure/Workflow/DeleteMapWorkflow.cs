@@ -1,20 +1,19 @@
-﻿using MapRepository.Core.Interfaces.Commands;
-using MapRepository.Core.Models;
+﻿using MapRepository.Core.Models;
 using MapRepository.Core.Workflow;
+using MapRepository.Core.Workflow.Tasks.MapRepositoryTasks;
 
 namespace MapRepository.Infrastructure.Workflow;
 
 internal class DeleteMapWorkflow : IDeleteMapWorkflow
 {
-    private readonly IDeleteMapCommand _deleteMapCommand;
+    private readonly IDeleteMapTask _deleteMapTask;
 
-    public DeleteMapWorkflow(IDeleteMapCommand deleteMapCommand)
+    public DeleteMapWorkflow(IDeleteMapTask deleteMapTask)
     {
-        _deleteMapCommand = deleteMapCommand;
+        _deleteMapTask = deleteMapTask;
     }
 
-    //TODO pass bucketname 
     public async Task<ResultModel> DeleteMap(string mapname)
-        =>  new ResultModel() { Success = true };//_deleteMapCommand.DeleteMap(mapname,"BUCKET");
+        =>  await _deleteMapTask.DeleteMap(mapname);
 
 }
