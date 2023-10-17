@@ -1,4 +1,5 @@
-﻿using MapRepository.Core.Service;
+﻿using MapRepository.Core.Models;
+using MapRepository.Core.Service;
 using MapRepositoryAPI.DTOs;
 using MapRepositoryAPI.Helpers;
 using Microsoft.AspNetCore.Mvc;
@@ -19,4 +20,7 @@ public class MissionMapController : Controller
     public async Task<ResultDto> SetMissionMap(string mapname)
         => (await _missionMapService.SetMissiionMap(mapname)).ToDto();
 
+    [HttpGet(nameof(GetCurrentMissionMap))]
+    public async Task<string> GetCurrentMissionMap()
+        => await _missionMapService.GetCurrentMissionMap();
 }

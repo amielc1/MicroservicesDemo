@@ -1,6 +1,5 @@
 ﻿using MapRepository.Core.AppSettings;
 using MapRepository.Core.Interfaces.Queries;
-using MapRepository.Core.Models;
 using Microsoft.Extensions.Logging;
 using Minio;
 
@@ -19,30 +18,29 @@ internal class GetMapByNameQuery : IGetMapByNameQuery
         _minio = new MinioFactory(_settings).CreateMinioClient();
     }
 
-    public async Task<ResultModel> GetMap(string mapname, string bucket, string pathToSave)
-    { 
-        var mapres = new ResultModel();
+    public async Task<string> GetMap(string mapname, string repository)
+    {
         try
         {
-            _logger.LogInformation("Running example for API: GetObjectAsync");
-            var args = new GetObjectArgs()
-                .WithBucket(bucket)
-                .WithObject(mapname)
-                .WithFile(pathToSave);
-            var stat = await _minio.GetObjectAsync(args).ConfigureAwait(false);
-
-            _logger.LogInformation($"Downloaded the file {mapname} in bucket {bucket}");
-            _logger.LogInformation($"Stat details of object {mapname} in bucket {bucket}\n" + stat);
-            mapres.Success = true;
+            _logger.LogInformation("Try to GetMap {mapname} from Repository {repository}", mapname, repository);
+            using (var ms = new MemoryStream())
+            {
+                var args = new GetObjectArgs()
+                 .WithBucket(repository)
+                 .WithObject(mapname)
+                 .WithCallbackStream((s) => s.CopyToAsync(ms));
+                var result = await _minio.GetObjectAsync(args);
+                // Convert the memory stream's buffer to a byte array
+                byte[] byteArray = ms.ToArray();
+                // Convert the byte array to a Base64 string
+                string base64String = Convert.ToBase64String(byteArray);
+                return base64String;
+            }
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
-            var msg = $"[Bucket]  Exception: {e}";
-            mapres.Success = false;
-            mapres.ErrorMessage = msg;
-            _logger.LogError(msg);
-            return mapres;
+            _logger.LogError(ex, "Error when Try to GetMap {mapname} from Repository {repository}", mapname, repository);
+            throw;
         }
-        return mapres;
     }
 }

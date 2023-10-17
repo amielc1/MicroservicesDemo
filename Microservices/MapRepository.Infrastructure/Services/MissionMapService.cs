@@ -12,9 +12,10 @@ internal class MissionMapService : IMissionMapService
     {
         _setMissiomMapWorkflow = setMissiomMapWorkflow;
     }
-     
-    public Task<ResultModel> SetMissiionMap(string mapname)
-      => _setMissiomMapWorkflow.SetMissiomMap(mapname);
 
-   
+    public async Task<string> GetCurrentMissionMap()
+    => await _setMissiomMapWorkflow.GetCurrentMissionMap();
+
+    public async Task<ResultModel> SetMissiionMap(string mapname)
+      => await _setMissiomMapWorkflow.SetMissiomMap(mapname);
 }

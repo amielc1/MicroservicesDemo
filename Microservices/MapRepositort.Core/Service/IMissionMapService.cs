@@ -5,5 +5,5 @@ namespace MapRepository.Core.Service;
 public interface IMissionMapService
 {
     Task<ResultModel> SetMissiionMap(string mapname);
-
+    Task<string> GetCurrentMissionMap();
 }

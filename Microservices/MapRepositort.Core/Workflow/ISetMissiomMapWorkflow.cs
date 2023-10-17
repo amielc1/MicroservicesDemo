@@ -5,4 +5,5 @@ namespace MapRepository.Core.Workflow;
 public interface ISetMissiomMapWorkflow
 {
     Task<ResultModel> SetMissiomMap(string mapname);
+    Task<string> GetCurrentMissionMap();
 }

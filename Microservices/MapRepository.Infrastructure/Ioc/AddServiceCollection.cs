@@ -43,6 +43,8 @@ public static class AddServiceColleAddServiceCollectionction
         services.AddTransient<IDeletePrevMissionMapTask, DeletePrevMissionMapTask>();
         services.AddTransient<IFindMapInMapsRepositoryTask, FindMapInMapsRepositoryTask>();
         services.AddTransient<IPublishMissionMapTask, PublishMissionMapTask>();
+        services.AddTransient<IGetCurrentMissionMapTask, GetCurrentMissionMapTask>();
+        
 
         services.AddTransient<IMapRepositoryService, MapRepositoryService>();
         services.AddTransient<IMissionMapService, MissionMapService>();

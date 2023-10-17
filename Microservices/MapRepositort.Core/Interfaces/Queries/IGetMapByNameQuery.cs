@@ -1,8 +1,6 @@
-﻿using MapRepository.Core.Models;
-
-namespace MapRepository.Core.Interfaces.Queries;
+﻿namespace MapRepository.Core.Interfaces.Queries;
 
 public interface IGetMapByNameQuery
 {
-    Task<ResultModel> GetMap(string mapname,string repository, string pathToSave);
+    Task<string> GetMap(string mapname, string repository);
 }

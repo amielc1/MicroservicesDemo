@@ -1,4 +1,5 @@
 ﻿using MapRepository.Core.AppSettings;
+using MapRepository.Core.Interfaces.Queries;
 using MapRepository.Core.Models;
 using MapRepository.Core.Workflow;
 using MapRepository.Core.Workflow.Tasks.MissionMapTasks;
@@ -10,7 +11,8 @@ internal class SetMissiomMapWorkflow : ISetMissiomMapWorkflow
     private readonly IFindMapInMapsRepositoryTask _findMapInMapsRepositoryTask;
     private readonly IDeletePrevMissionMapTask _deletePrevMissionMapTask;
     private readonly ICopySelectedMapTask _copySelectedMapTask;
-    private readonly IPublishMissionMapTask _publishMissionMapTask; 
+    private readonly IPublishMissionMapTask _publishMissionMapTask;
+    private readonly IGetCurrentMissionMapTask _getCurrentMissionMapTask;
     private readonly MinIoConfiguration _settings;
 
 
@@ -18,14 +20,21 @@ internal class SetMissiomMapWorkflow : ISetMissiomMapWorkflow
         IFindMapInMapsRepositoryTask findMapInMapsRepositoryTask,
         IDeletePrevMissionMapTask deletePrevMissionMapTask,
         ICopySelectedMapTask copySelectedMapTask,
-        IPublishMissionMapTask publishMissionMapTask,   
+        IPublishMissionMapTask publishMissionMapTask,
+        IGetCurrentMissionMapTask getCurrentMissionMapTask,
         MinIoConfiguration settings)
     {
         _findMapInMapsRepositoryTask = findMapInMapsRepositoryTask;
         _deletePrevMissionMapTask = deletePrevMissionMapTask;
         _copySelectedMapTask = copySelectedMapTask;
         _publishMissionMapTask = publishMissionMapTask;
+        _getCurrentMissionMapTask = getCurrentMissionMapTask;
         _settings = settings;
+    }
+
+    public Task<string> GetCurrentMissionMap()
+    {
+        return _getCurrentMissionMapTask.GetCurrentMissionMap();
     }
 
     public async Task<ResultModel> SetMissiomMap(string mapname)
@@ -57,7 +66,7 @@ internal class SetMissiomMapWorkflow : ISetMissiomMapWorkflow
         {
             return new ResultModel { Success = false, ErrorMessage = $"Map {mapname} didn't find in map repository" };
         }
-         
+
         return new ResultModel { Success = true, ErrorMessage = "Workflow Passed " };
     }
 }
