@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Windows.Markup;
 using System.Windows.Media.Imaging;
 
 namespace MapPresentor
@@ -37,9 +38,14 @@ namespace MapPresentor
         public BitmapImage ConvertBytesToBitmapImage(byte[] bytes)
         {
             var bitmapImage = new BitmapImage();
-            bitmapImage.BeginInit();
-            bitmapImage.StreamSource = new MemoryStream(bytes);
-            bitmapImage.EndInit();
+            using (var stream = new MemoryStream(bytes))
+            { 
+                bitmapImage.BeginInit();
+                bitmapImage.StreamSource = stream;
+                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapImage.EndInit();
+                bitmapImage.Freeze();
+            } 
             return bitmapImage;
         }
 

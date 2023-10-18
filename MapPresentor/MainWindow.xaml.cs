@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using MapEntitiesService.Core.Models;
+using Microsoft.AspNetCore.SignalR.Client;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -10,11 +12,11 @@ namespace MapPresentor
 {
     public partial class MainWindow : Window
     {
-        private const string GetCurrentMissionMapUrl = "https://localhost:51141/api/MissionMap/GetCurrentMissionMap";
-        private const string GetAllMapsUrl = "http://localhost:51142/api/MapRepository/GetAllMaps";
-        private const string HubUrl = "https://localhost:51145/notification";
-        private const string SetMissionMapUrl = "http://localhost:51142/api/MissionMap/SetMissionMap";
-        private const string DeleteMapUrl = "http://localhost:51142/api/MapRepository/DeleteMap";
+        private const string GetCurrentMissionMapUrl = "https://localhost:51077/api/MissionMap/GetCurrentMissionMap";
+        private const string GetAllMapsUrl = "https://localhost:51077/api/MapRepository/GetAllMaps";
+        private const string HubUrl = "https://localhost:51082/notification";
+        private const string SetMissionMapUrl = "https://localhost:51077/api/MissionMap/SetMissionMap";
+        private const string DeleteMapUrl = "https://localhost:51077/api/MapRepository/DeleteMap";
         private readonly SignalRManager signalRManager;
         private readonly ImageManager imageManager;
 
@@ -91,11 +93,19 @@ namespace MapPresentor
                 throw;
             }
         }
-
-
+         
         private void ConnectHub()
         {
-            signalRManager.StartConnection(() => Dispatcher.Invoke(() => SetCurrentMissionMap()));
+            signalRManager.connection.On<MapEntityDto>("ReciveMapEntity",
+             (mapentity) =>
+             {
+                 Dispatcher.Invoke(() => lst_points.Items.Add($"{mapentity.Tile} : {mapentity.PointX},{mapentity.PointY}"));
+             });
+
+            signalRManager.connection.On<string>("MissionMapChanged", async mapName =>
+            {
+                Dispatcher.Invoke(() => SetCurrentMissionMap());
+            });
         }
         private async void SetCurrentMissionMap()
         {

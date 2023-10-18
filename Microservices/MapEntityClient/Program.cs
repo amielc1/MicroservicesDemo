@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.SignalR.Client;
 
 //Set connection
 var builder = new HubConnectionBuilder()
-    .WithUrl("https://localhost:60847/notification")
+    .WithUrl("https://localhost:51082/notification")
     .WithAutomaticReconnect();
 
 var connection = builder.Build();

@@ -33,8 +33,9 @@ internal class NotificationBackgroundService : BackgroundService
 
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        _mapEntitySubscribeService.Subscribe(_settings.MapEntitiesTopic, _newMapEntityCommandHandler.ReciveMapEntity);
         _missionMapSubscribeService.Subscribe(_settings.MissonMapTopic, _newMissionMapCommandHandler.MissionMapChanged);
+        _mapEntitySubscribeService.Subscribe(_settings.MapEntitiesTopic, _newMapEntityCommandHandler.ReciveMapEntity);
+
         return Task.CompletedTask;
     }
 

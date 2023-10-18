@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.SignalR.Client;
+﻿using MapEntitiesService.Core.Models;
+using Microsoft.AspNetCore.SignalR.Client;
 using System;
 
 namespace MapPresentor
@@ -6,23 +7,19 @@ namespace MapPresentor
     public class SignalRManager
     {
         private readonly string hubUrl;
-        private readonly HubConnection connection;
+        public readonly HubConnection connection;
 
         public SignalRManager(string hubUrl)
         {
             this.hubUrl = hubUrl;
             connection = BuildHubConnection();
+            StartConnection();
         }
 
-        public async void StartConnection(Action onMissionMapChanged)
+        private async void StartConnection()
         {
             await connection.StartAsync();
-            Console.WriteLine($"Connection state: {connection.State}");
-
-            connection.On<string>("MissionMapChanged", mapName =>
-            {
-                onMissionMapChanged?.Invoke();
-            });
+            Console.WriteLine($"Connection state: {connection.State}"); 
         }
 
         private HubConnection BuildHubConnection()

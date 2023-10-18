@@ -15,8 +15,18 @@
             <ColumnDefinition Width="161*"/>
             <ColumnDefinition Width="639*"/>
         </Grid.ColumnDefinitions>
-        <Image x:Name="img_map" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
-        <ListBox x:Name="lst_maps" Margin="0,53,0,0" Grid.RowSpan="2"  />
+        <Image x:Name="img_map" Grid.Column="2" Grid.Row="2"/>
+        <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0">
+            <StackPanel>
+                <Label Content="Maps :"/>
+                <ListBox x:Name="lst_maps" />
+            </StackPanel>
+            <StackPanel>
+                <Label Content="Pionts :"/>
+                <ListBox x:Name="lst_points" />
+            </StackPanel>
+        </StackPanel>
+
         <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="0">
             <Button x:Name="btn_set" Content="Set" Margin="5" Click="btn_set_Click"/>
             <Button x:Name="btn_del" Content="Delete" Margin="5" Click="btn_del_Click"/>
