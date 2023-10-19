@@ -15,11 +15,21 @@ namespace MapPresentor
             connection = BuildHubConnection();
             StartConnection();
         }
+         
+        public void RegisterMapEntityHandler(Action<MapEntityDto> handler)
+        {
+            connection.On<MapEntityDto>("ReciveMapEntity", mapEntity => handler?.Invoke(mapEntity));
+        }
+
+        public void RegisterMissionMapChangedHandler(Action<string> handler)
+        {
+            connection.On<string>("MissionMapChanged", mapName => handler?.Invoke(mapName)); 
+        }
 
         private async void StartConnection()
         {
             await connection.StartAsync();
-            Console.WriteLine($"Connection state: {connection.State}"); 
+            Console.WriteLine($"Connection state: {connection.State}");
         }
 
         private HubConnection BuildHubConnection()

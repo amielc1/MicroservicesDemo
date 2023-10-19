@@ -3,33 +3,86 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MapPresentor"
+        xmlns:local="clr-namespace:MapPresentor.ViewModel"
+        xmlns:prism="http://prismlibrary.com/"
+        prism:ViewModelLocator.AutoWireViewModel="True"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="65*"/>
-            <RowDefinition Height="369*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="161*"/>
-            <ColumnDefinition Width="639*"/>
-        </Grid.ColumnDefinitions>
-        <Image x:Name="img_map" Grid.Column="2" Grid.Row="2"/>
-        <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0">
-            <StackPanel>
-                <Label Content="Maps :"/>
-                <ListBox x:Name="lst_maps" />
-            </StackPanel>
-            <StackPanel>
-                <Label Content="Pionts :"/>
-                <ListBox x:Name="lst_points" />
-            </StackPanel>
-        </StackPanel>
+    <Window.Resources>
+        <local:MapEntitiesViewModel x:Key="MapEntitiesViewModel"/>
+        <local:MissionMapViewModel x:Key="MissionMapViewModel"/>
+    </Window.Resources>
+    <TabControl>
+        <TabItem Header="Map Entities" DataContext="{StaticResource MapEntitiesViewModel}">
+            <Grid Background="#FFE5E5E5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80*"/>
+                    <ColumnDefinition Width="317*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel>
+                    <StackPanel DataContext="{Binding CurrentMapEntity}">
+                        <Label Content="Create Map Entity"/>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <Label Content="Title" Width="50"/>
+                            <TextBox Width="100" Text="{Binding Title}"/>
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <Label Content="X Pos" Width="50"/>
+                            <TextBox Width="100" Text="{Binding XPos}"/>
+                        </StackPanel>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <Label Content="Y Pos" Width="50"/>
+                            <TextBox Width="100" Text="{Binding YPos}"/>
+                        </StackPanel>
+                    </StackPanel>
 
-        <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="0">
-            <Button x:Name="btn_set" Content="Set" Margin="5" Click="btn_set_Click"/>
-            <Button x:Name="btn_del" Content="Delete" Margin="5" Click="btn_del_Click"/>
-        </StackPanel>
-    </Grid>
+                    <Button Margin="5" Content="Create" Width="70" Command="{Binding CreateCommand}"/>
+
+                    <ListBox ItemsSource="{Binding MapEntities}" SelectedItem="{Binding CurrentMapEntity}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Title}" FontWeight="Bold"/>
+                                    <TextBlock Text=" ( "/>
+                                    <TextBlock Text="{Binding XPos}"/>
+                                    <TextBlock Text=" , "/>
+                                    <TextBlock Text="{Binding YPos}"/>
+                                    <TextBlock Text=" ) "/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+
+            </Grid>
+        </TabItem>
+        <TabItem Header="Map" DataContext="{StaticResource MissionMapViewModel}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="65*"/>
+                    <RowDefinition Height="369*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="161*"/>
+                    <ColumnDefinition Width="639*"/>
+                </Grid.ColumnDefinitions>
+
+                <Image x:Name="img_map" Source="{Binding CurrentMissionMap}" Grid.Column="2" Grid.Row="2"/>
+
+                <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0">
+                    <StackPanel>
+                        <Label Content="Maps :"/>
+                        <ListBox  ItemsSource="{Binding Maps}" SelectedItem="{Binding SelectedMap}"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="0">
+                    <Button  Content="Set" Margin="5" Command="{Binding SetCommand}"/>
+                    <Button  Content="Delete" Margin="5" Command="{Binding DeleteCommand}"/>
+                </StackPanel>
+            </Grid>
+        </TabItem>
+
+    </TabControl>
+
 </Window>
