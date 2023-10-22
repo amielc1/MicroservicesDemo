@@ -1,7 +1,5 @@
-﻿using MapEntitiesService.Core.Models;
-using NotificationService.Core.Interfaces;
+﻿using NotificationService.Core.Interfaces;
 using NotificationService.Core.Interfaces.MapEntity;
-using System.Text.Json;
 
 namespace NotificationService.Infrastructure.Services.MapEntity;
 
@@ -16,8 +14,8 @@ internal class NewMapEntityCommandHandler : INewMapEntityCommandHandler
 
     async void INewMapEntityCommandHandler.ReciveMapEntity(string mapEntity)
     {
-        var entity = JsonSerializer.Deserialize<MapEntityDto>(mapEntity);
-        if (entity is null) return;
-        await _notifyer.ReciveMapEntity(entity);
+        //var entity = JsonSerializer.Deserialize<MapEntityDto>(mapEntity);
+        if (mapEntity is null) return;
+        await _notifyer.ReciveMapEntity(mapEntity);
     }
 }

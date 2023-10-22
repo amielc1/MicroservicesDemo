@@ -1,26 +1,28 @@
-﻿using MapEntitiesService.Core.Models;
-using MapPresentor.Models;
+﻿using MapPresentor.Models;
+using MapPresentor.Services.Interfaces;
 using Microsoft.AspNetCore.SignalR.Client;
 using Prism.Commands;
 using Prism.Mvvm;
 using System;
 using System.Collections.ObjectModel;
+using System.Text.Json;
 using System.Windows.Input;
 
 namespace MapPresentor.ViewModel;
 
 public class MapEntitiesViewModel : BindableBase
-{ 
-    private MapEntityModel _currentMapEntity;
-    private ObservableCollection<MapEntityModel> _mapEntities;
+{
+    private readonly IMissionMapService _missionMapService;
+    private MapEntityDto _currentMapEntity;
+    private ObservableCollection<MapEntityDto> _mapEntities;
 
-    public MapEntityModel CurrentMapEntity
+    public MapEntityDto CurrentMapEntity
     {
         get => _currentMapEntity;
         set => SetProperty(ref _currentMapEntity, value);
     }
 
-    public ObservableCollection<MapEntityModel> MapEntities
+    public ObservableCollection<MapEntityDto> MapEntities
     {
         get => _mapEntities;
         set => SetProperty(ref _mapEntities, value);
@@ -28,25 +30,26 @@ public class MapEntitiesViewModel : BindableBase
 
     public ICommand CreateCommand { get; }
 
-    public MapEntitiesViewModel()
+    public MapEntitiesViewModel(IMissionMapService missionMapService)
     {
+        _missionMapService = missionMapService;
         SignalRManager signalRManager = new SignalRManager(AppSettings.HubUrl);
-
-        signalRManager.connection.On<MapEntityDto>("ReciveMapEntity", HandleReciveMapEntity);
+        signalRManager.connection.On<string>("ReciveMapEntity", HandleReciveMapEntity);
         CreateCommand = new DelegateCommand(Create);
-        MapEntities = new ObservableCollection<MapEntityModel>();
-        CurrentMapEntity = new MapEntityModel();
+        MapEntities = new ObservableCollection<MapEntityDto>();
+        CurrentMapEntity = new MapEntityDto();
     }
 
-    private void HandleReciveMapEntity(MapEntityDto point)
+    private void HandleReciveMapEntity(string entity)
     {
+        var point = JsonSerializer.Deserialize<MapEntityDto>(entity);
         App.Current.Dispatcher.Invoke(new Action(() =>
         {
-            MapEntityModel newMapEntity = new MapEntityModel
+            MapEntityDto newMapEntity = new MapEntityDto
             {
-                Title = point.Tile,
-                XPos = point.PointX,
-                YPos = point.PointY
+                Title = point.Title,
+                PointX = point.PointX,
+                PointY = point.PointY
             };
             MapEntities.Add(newMapEntity);
         }));
@@ -54,15 +57,15 @@ public class MapEntitiesViewModel : BindableBase
 
     private void Create()
     {
-        MapEntityModel newMapEntity = new MapEntityModel
+        MapEntityDto newMapEntity = new MapEntityDto
         {
             Title = CurrentMapEntity.Title,
-            XPos = CurrentMapEntity.XPos,
-            YPos = CurrentMapEntity.YPos
+            PointX = CurrentMapEntity.PointX,
+            PointY = CurrentMapEntity.PointY
         };
 
         MapEntities.Add(newMapEntity);
-        CurrentMapEntity = new MapEntityModel();
+        CurrentMapEntity = new MapEntityDto();
     }
 
 }

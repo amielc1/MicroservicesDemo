@@ -1,4 +1,4 @@
-﻿using MapEntitiesService.Core.Models;
+﻿using MapPresentor.Models;
 using Microsoft.AspNetCore.SignalR.Client;
 using System;
 

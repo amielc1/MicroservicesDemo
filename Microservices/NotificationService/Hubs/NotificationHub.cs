@@ -8,7 +8,7 @@ public class NotificationHub : Hub<IClientNames>
 {
 
     //todo check if this needed
-    public async Task NotifyNewEntity(MapEntityDto mapEntity)
+    public async Task NotifyNewEntity(string mapEntity)
     {
         await Clients.All.ReciveMapEntity(mapEntity);
     }

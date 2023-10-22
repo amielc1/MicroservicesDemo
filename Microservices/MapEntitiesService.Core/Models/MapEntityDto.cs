@@ -2,7 +2,7 @@
 
 public class MapEntityDto
 {
-    public string Tile { get; set; } = string.Empty;
+    public string Title { get; set; } = string.Empty;
     public float PointX { get; set; } = float.NaN;
     public float PointY { get; set; } = float.NaN;
 }

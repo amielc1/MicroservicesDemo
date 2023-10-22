@@ -39,12 +39,12 @@ public class MissionMapViewModel : BindableBase
     public ICommand SetCommand { get; }
     public ICommand DeleteCommand { get; }
 
-    public MissionMapViewModel()
+    public MissionMapViewModel(IMissionMapService missionMapService)
     {
-
+        _missionMapService = missionMapService;
         SignalRManager signalRManager = new SignalRManager(AppSettings.HubUrl);
         signalRManager.connection.On<string>("MissionMapChanged", HandleMissionMapChanged); 
-        _missionMapService = new MissionMapService(new RESTCommand());
+      
         Maps = new ObservableCollection<string>();
         SetCommand = new DelegateCommand(Set);
         DeleteCommand = new DelegateCommand(Delete);
@@ -82,7 +82,6 @@ public class MissionMapViewModel : BindableBase
         var mapimagearr = await _missionMapService.GetCurrentMissionMap();
         var mapbitmap = ConvertBytesToBitmapImage(mapimagearr);
         CurrentMissionMap = mapbitmap;
-
     }
 
     public BitmapImage ConvertBytesToBitmapImage(byte[] bytes)

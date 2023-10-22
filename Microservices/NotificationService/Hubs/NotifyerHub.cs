@@ -18,7 +18,7 @@ public class NotifyerHub : INotifyer
         await _notificationHub.Clients.All.MissionMapChanged(mapname);
     }
 
-    public async Task ReciveMapEntity(MapEntityDto entity)
+    public async Task ReciveMapEntity(string entity)
     {
         await _notificationHub.Clients.All.ReciveMapEntity(entity);
     }

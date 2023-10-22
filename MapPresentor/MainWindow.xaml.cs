@@ -5,13 +5,9 @@ namespace MapPresentor
 {
     public partial class MainWindow : Window
     {
-        IContainerExtension _container;
-
-
-        public MainWindow(IContainerExtension container)
+        public MainWindow()
         {
             InitializeComponent();
-            _container = container;
         }
     }
 }

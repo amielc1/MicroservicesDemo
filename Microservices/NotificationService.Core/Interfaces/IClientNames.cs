@@ -4,7 +4,7 @@ namespace NotificationService.Core.Interfaces
 {
     public interface IClientNames
     {
-        Task ReciveMapEntity(MapEntityDto mapEntity);
+        Task ReciveMapEntity(string mapEntity);
         Task MissionMapChanged(string mapname);
     }
 }

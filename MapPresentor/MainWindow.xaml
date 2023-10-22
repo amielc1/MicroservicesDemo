@@ -2,18 +2,16 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MapPresentor.ViewModel"
-        xmlns:prism="http://prismlibrary.com/"
-        prism:ViewModelLocator.AutoWireViewModel="True"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        mc:Ignorable="d" 
+        xmlns:viewmodels="clr-namespace:MapPresentor.ViewModel"
+        Title="MainWindow" Height="450" Width="800"
+         WindowStartupLocation="CenterScreen">
     <Window.Resources>
-        <local:MapEntitiesViewModel x:Key="MapEntitiesViewModel"/>
-        <local:MissionMapViewModel x:Key="MissionMapViewModel"/>
+        <viewmodels:ViewModelLocator x:Key="Locator" d:IsDataSource="True"/>
     </Window.Resources>
     <TabControl>
-        <TabItem Header="Map Entities" DataContext="{StaticResource MapEntitiesViewModel}">
+        <TabItem Header="Map Entities" DataContext="{Binding Source={StaticResource Locator}, Path=MapEntitiesViewModel}">
             <Grid Background="#FFE5E5E5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="80*"/>
@@ -28,11 +26,11 @@
                         </StackPanel>
                         <StackPanel Margin="5" Orientation="Horizontal">
                             <Label Content="X Pos" Width="50"/>
-                            <TextBox Width="100" Text="{Binding XPos}"/>
+                            <TextBox Width="100" Text="{Binding PointX}"/>
                         </StackPanel>
                         <StackPanel Margin="5" Orientation="Horizontal">
                             <Label Content="Y Pos" Width="50"/>
-                            <TextBox Width="100" Text="{Binding YPos}"/>
+                            <TextBox Width="100" Text="{Binding PointY}"/>
                         </StackPanel>
                     </StackPanel>
 
@@ -44,9 +42,9 @@
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="{Binding Title}" FontWeight="Bold"/>
                                     <TextBlock Text=" ( "/>
-                                    <TextBlock Text="{Binding XPos}"/>
+                                    <TextBlock Text="{Binding PointX}"/>
                                     <TextBlock Text=" , "/>
-                                    <TextBlock Text="{Binding YPos}"/>
+                                    <TextBlock Text="{Binding PointY}"/>
                                     <TextBlock Text=" ) "/>
                                 </StackPanel>
                             </DataTemplate>
@@ -56,7 +54,7 @@
 
             </Grid>
         </TabItem>
-        <TabItem Header="Map" DataContext="{StaticResource MissionMapViewModel}">
+        <TabItem Header="Map" DataContext="{Binding Source={StaticResource Locator}, Path=MissionMapViewModel}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="65*"/>
