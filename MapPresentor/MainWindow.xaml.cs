@@ -1,21 +1,14 @@
-﻿using MapPresentor.ViewModel;
-using MapPresentor.ViewModel.Interfaces;
+﻿using MapPresentor.ViewModel.Interfaces;
 using System.Windows;
 
-namespace MapPresentor
+namespace MapPresentor;
+
+public partial class MainWindow : Window
 {
-    public partial class MainWindow : Window
+    public MainWindow(
+        IViewModelLocator viewModelLocator)
     {
-        public MainWindow(
-            IMapEntitiesViewModel mapEntitiesViewModel,
-            IMissionMapViewModel missionMapViewModel)
-        {
-            InitializeComponent();
-            this.DataContext = new ViewModelLocator()
-            {
-                MapEntitiesViewModel = mapEntitiesViewModel,
-                MissionMapViewModel = missionMapViewModel
-            };
-        }
+        InitializeComponent();
+        this.DataContext = viewModelLocator;
     }
 }

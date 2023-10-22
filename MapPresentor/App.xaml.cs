@@ -42,14 +42,14 @@ public partial class App : Application
     {
         services.Configure<AppSettings>(configuration.GetSection(nameof(AppSettings)));
 
-        // Register all ViewModels.
+      
         services.AddTransient<IMissionMapService, MissionMapService>();
         services.AddTransient<IRESTCommand, RESTCommand>();
 
         services.AddSingleton<IMapEntitiesViewModel, MapEntitiesViewModel>();
         services.AddSingleton<IMissionMapViewModel, MissionMapViewModel>();
+        services.AddSingleton<IViewModelLocator, ViewModelLocator>();
 
-        // Register all the Windows of the applications.
         services.AddTransient<MainWindow>();
     }
 

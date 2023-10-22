@@ -2,9 +2,16 @@
 
 namespace MapPresentor.ViewModel;
 
-public class ViewModelLocator
+internal class ViewModelLocator : IViewModelLocator
 {
-    public IMapEntitiesViewModel MapEntitiesViewModel { get; set; }
-    public IMissionMapViewModel MissionMapViewModel { get; set; }
+    private readonly IMapEntitiesViewModel _mapEntitiesViewModel;
+    private readonly IMissionMapViewModel _missionMapViewModel;
+    public ViewModelLocator(IMapEntitiesViewModel mapEntitiesViewModel, IMissionMapViewModel missionMapViewModel)
+    {
+        _mapEntitiesViewModel = mapEntitiesViewModel;
+        _missionMapViewModel = missionMapViewModel;
+    }
 
+    public IMapEntitiesViewModel MapEntitiesViewModel { get => _mapEntitiesViewModel; }
+    public IMissionMapViewModel MissionMapViewModel { get => _missionMapViewModel; }
 }

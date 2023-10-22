@@ -1,4 +1,5 @@
-﻿using MapPresentor.Services.Interfaces;
+﻿using MapPresentor.Helpers;
+using MapPresentor.Services.Interfaces;
 using MapPresentor.ViewModel.Interfaces;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Options;
@@ -84,21 +85,9 @@ public class MissionMapViewModel : BindableBase, IMissionMapViewModel
     private async Task LoadCurrentMapImage()
     {
         var mapimagearr = await _missionMapService.GetCurrentMissionMap();
-        var mapbitmap = ConvertBytesToBitmapImage(mapimagearr);
+        var mapbitmap = Helper.ConvertBytesToBitmapImage(mapimagearr);
         CurrentMissionMap = mapbitmap;
     }
-
-    private BitmapImage ConvertBytesToBitmapImage(byte[] bytes)
-    {
-        var bitmapImage = new BitmapImage();
-        using (var stream = new MemoryStream(bytes))
-        {
-            bitmapImage.BeginInit();
-            bitmapImage.StreamSource = stream;
-            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-            bitmapImage.EndInit();
-            bitmapImage.Freeze();
-        }
-        return bitmapImage;
-    }
 }
+
+ 

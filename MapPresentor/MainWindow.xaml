@@ -34,7 +34,7 @@
                     </StackPanel>
 
                     <Button Margin="5" Content="Create" Width="70" Command="{Binding CreateCommand}"/>
-
+                    <Label Content="Points :"/>
                     <ListBox ItemsSource="{Binding MapEntities}" SelectedItem="{Binding CurrentMapEntity}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
@@ -50,7 +50,8 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
                 </StackPanel>
-
+                <Image Source="{Binding CurrentMissionMap}" Grid.Column="1"/>
+                <ItemsControl ItemsSource="{Binding Ellipses}" Grid.Column="1"/>
             </Grid>
         </TabItem>
         <TabItem Header="Map" DataContext="{Binding MissionMapViewModel}">
