@@ -1,4 +1,5 @@
 ﻿using MapPresentor.Services.Interfaces;
+using MapPresentor.ViewModel.Interfaces;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Options;
 using Prism.Commands;
@@ -12,7 +13,7 @@ using System.Windows.Media.Imaging;
 
 namespace MapPresentor.ViewModel;
 
-public class MissionMapViewModel : BindableBase
+public class MissionMapViewModel : BindableBase, IMissionMapViewModel
 {
     private readonly AppSettings _settings;
     private IMissionMapService _missionMapService;
@@ -87,7 +88,7 @@ public class MissionMapViewModel : BindableBase
         CurrentMissionMap = mapbitmap;
     }
 
-    public BitmapImage ConvertBytesToBitmapImage(byte[] bytes)
+    private BitmapImage ConvertBytesToBitmapImage(byte[] bytes)
     {
         var bitmapImage = new BitmapImage();
         using (var stream = new MemoryStream(bytes))

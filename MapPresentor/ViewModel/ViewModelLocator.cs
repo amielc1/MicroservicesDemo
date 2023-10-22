@@ -1,10 +1,10 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using MapPresentor.ViewModel.Interfaces;
 
 namespace MapPresentor.ViewModel;
 
 public class ViewModelLocator
 {
-    public MapEntitiesViewModel MapEntitiesViewModel => App.ServiceProvider.GetRequiredService<MapEntitiesViewModel>();
-    public MissionMapViewModel MissionMapViewModel => App.ServiceProvider.GetRequiredService<MissionMapViewModel>();
+    public IMapEntitiesViewModel MapEntitiesViewModel { get; set; }
+    public IMissionMapViewModel MissionMapViewModel { get; set; }
 
 }

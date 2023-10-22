@@ -1,5 +1,6 @@
 ﻿using MapPresentor.Models;
 using MapPresentor.Services.Interfaces;
+using MapPresentor.ViewModel.Interfaces;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Options;
 using Prism.Commands;
@@ -11,7 +12,7 @@ using System.Windows.Input;
 
 namespace MapPresentor.ViewModel;
 
-public class MapEntitiesViewModel : BindableBase
+public class MapEntitiesViewModel : BindableBase, IMapEntitiesViewModel
 {
     private readonly AppSettings _settings;
     private readonly IMissionMapService _missionMapService;

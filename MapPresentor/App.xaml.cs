@@ -1,6 +1,7 @@
 ﻿using MapPresentor.Services;
 using MapPresentor.Services.Interfaces;
 using MapPresentor.ViewModel;
+using MapPresentor.ViewModel.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -40,13 +41,13 @@ public partial class App : Application
     private void ConfigureServices(IConfiguration configuration, IServiceCollection services)
     {
         services.Configure<AppSettings>(configuration.GetSection(nameof(AppSettings)));
-  
+
         // Register all ViewModels.
         services.AddTransient<IMissionMapService, MissionMapService>();
         services.AddTransient<IRESTCommand, RESTCommand>();
 
-        services.AddSingleton<MapEntitiesViewModel>();
-        services.AddSingleton<MissionMapViewModel>();
+        services.AddSingleton<IMapEntitiesViewModel, MapEntitiesViewModel>();
+        services.AddSingleton<IMissionMapViewModel, MissionMapViewModel>();
 
         // Register all the Windows of the applications.
         services.AddTransient<MainWindow>();

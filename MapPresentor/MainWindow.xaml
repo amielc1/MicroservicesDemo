@@ -4,14 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         mc:Ignorable="d" 
-        xmlns:viewmodels="clr-namespace:MapPresentor.ViewModel"
-        Title="MainWindow" Height="450" Width="800"
-         WindowStartupLocation="CenterScreen">
+        Title="Map Presentor" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen">
     <Window.Resources>
-        <viewmodels:ViewModelLocator x:Key="Locator" d:IsDataSource="True"/>
+
     </Window.Resources>
     <TabControl>
-        <TabItem Header="Map Entities" DataContext="{Binding Source={StaticResource Locator}, Path=MapEntitiesViewModel}">
+        <TabItem Header="Map Entities" DataContext="{Binding MapEntitiesViewModel}">
             <Grid Background="#FFE5E5E5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="80*"/>
@@ -54,7 +53,7 @@
 
             </Grid>
         </TabItem>
-        <TabItem Header="Map" DataContext="{Binding Source={StaticResource Locator}, Path=MissionMapViewModel}">
+        <TabItem Header="Map" DataContext="{Binding MissionMapViewModel}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="65*"/>
