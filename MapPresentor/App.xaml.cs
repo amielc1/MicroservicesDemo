@@ -23,7 +23,7 @@ public partial class App : Application
                 .ConfigureAppConfiguration((context, builder) =>
                 {
                     // Add other configuration files...
-                    //builder.AddJsonFile("appsettings.local.json", optional: true);
+                    builder.AddJsonFile("appsettings.local.json", optional: true);
                 }).ConfigureServices((context, services) =>
                 {
                     ConfigureServices(context.Configuration, services);
@@ -39,7 +39,7 @@ public partial class App : Application
 
     private void ConfigureServices(IConfiguration configuration, IServiceCollection services)
     {
-        //services.Configure<AppSettings>(configuration.GetSection(nameof(AppSettings)));
+        services.Configure<AppSettings>(configuration.GetSection(nameof(AppSettings)));
   
         // Register all ViewModels.
         services.AddTransient<IMissionMapService, MissionMapService>();

@@ -1,6 +1,7 @@
 ﻿using MapPresentor.Models;
 using MapPresentor.Services.Interfaces;
 using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.Extensions.Options;
 using Prism.Commands;
 using Prism.Mvvm;
 using System;
@@ -12,6 +13,7 @@ namespace MapPresentor.ViewModel;
 
 public class MapEntitiesViewModel : BindableBase
 {
+    private readonly AppSettings _settings;
     private readonly IMissionMapService _missionMapService;
     private MapEntityDto _currentMapEntity;
     private ObservableCollection<MapEntityDto> _mapEntities;
@@ -30,11 +32,12 @@ public class MapEntitiesViewModel : BindableBase
 
     public ICommand CreateCommand { get; }
 
-    public MapEntitiesViewModel(IMissionMapService missionMapService)
+    public MapEntitiesViewModel(IMissionMapService missionMapService, IOptions<AppSettings> options)
     {
+        _settings = options.Value;
         _missionMapService = missionMapService;
-        SignalRManager signalRManager = new SignalRManager(AppSettings.HubUrl);
-        signalRManager.connection.On<string>("ReciveMapEntity", HandleReciveMapEntity);
+        SignalRManager signalRManager = new SignalRManager(_settings.HubUrl);
+        signalRManager.connection.On<string>(_settings.ReciveMapEntityHubname, HandleReciveMapEntity);
         CreateCommand = new DelegateCommand(Create);
         MapEntities = new ObservableCollection<MapEntityDto>();
         CurrentMapEntity = new MapEntityDto();

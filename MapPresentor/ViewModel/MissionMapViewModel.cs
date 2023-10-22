@@ -1,5 +1,6 @@
-﻿using MapPresentor.Services;
-using MapPresentor.Services.Interfaces;
+﻿using MapPresentor.Services.Interfaces;
+using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.Extensions.Options;
 using Prism.Commands;
 using Prism.Mvvm;
 using System.Collections.ObjectModel;
@@ -7,12 +8,13 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging; 
-using Microsoft.AspNetCore.SignalR.Client;
+using System.Windows.Media.Imaging;
+
 namespace MapPresentor.ViewModel;
 
 public class MissionMapViewModel : BindableBase
-{ 
+{
+    private readonly AppSettings _settings;
     private IMissionMapService _missionMapService;
     private ObservableCollection<string> _maps;
     private string _selectedMap;
@@ -39,12 +41,13 @@ public class MissionMapViewModel : BindableBase
     public ICommand SetCommand { get; }
     public ICommand DeleteCommand { get; }
 
-    public MissionMapViewModel(IMissionMapService missionMapService)
+    public MissionMapViewModel(IMissionMapService missionMapService, IOptions<AppSettings> options)
     {
+        _settings = options.Value;
         _missionMapService = missionMapService;
-        SignalRManager signalRManager = new SignalRManager(AppSettings.HubUrl);
-        signalRManager.connection.On<string>("MissionMapChanged", HandleMissionMapChanged); 
-      
+        SignalRManager signalRManager = new SignalRManager(_settings.HubUrl);
+        signalRManager.connection.On<string>(_settings.MissionMapChangedHubname, HandleMissionMapChanged);
+
         Maps = new ObservableCollection<string>();
         SetCommand = new DelegateCommand(Set);
         DeleteCommand = new DelegateCommand(Delete);

@@ -16,16 +16,6 @@ namespace MapPresentor
             StartConnection();
         }
          
-        public void RegisterMapEntityHandler(Action<MapEntityDto> handler)
-        {
-            connection.On<MapEntityDto>("ReciveMapEntity", mapEntity => handler?.Invoke(mapEntity));
-        }
-
-        public void RegisterMissionMapChangedHandler(Action<string> handler)
-        {
-            connection.On<string>("MissionMapChanged", mapName => handler?.Invoke(mapName)); 
-        }
-
         private async void StartConnection()
         {
             await connection.StartAsync();

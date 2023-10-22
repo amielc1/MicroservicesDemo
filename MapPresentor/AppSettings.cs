@@ -1,13 +1,14 @@
-﻿using System.Configuration;
-
-namespace MapPresentor
+﻿namespace MapPresentor
 {
     public class AppSettings
     {
-        public static string HubUrl => ConfigurationManager.AppSettings["HubUrl"];
-        public static string SetMissionMapUrl => ConfigurationManager.AppSettings["SetMissionMapUrl"];
-        public static string DeleteMapUrl => ConfigurationManager.AppSettings["DeleteMapUrl"];
-        public static string GetAllMapsUrl => ConfigurationManager.AppSettings["GetAllMapsUrl"];
-        public static string GetCurrentMissionMapUrl => ConfigurationManager.AppSettings["GetCurrentMissionMapUrl"];
+        public string HubUrl { get; set; }
+        public string SetMissionMapUrl { get; set; }
+        public string DeleteMapUrl { get; set; }
+        public string GetAllMapsUrl { get; set; }
+        public string GetCurrentMissionMapUrl { get; set; }
+        public string ReciveMapEntityHubname { get; set; }
+        public string MissionMapChangedHubname { get; set; }
+
     }
 }
