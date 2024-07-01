@@ -1,11 +1,9 @@
-﻿using MapRepository.Core.Interfaces.Commands;
-using MapRepository.Core.Models;
+﻿using MapRepository.Core.Models;
 using MapRepository.Core.Service;
 using MapRepository.Core.Workflow;
-using MapRepository.Infrastructure.Workflow;
 
 namespace MapRepository.Infrastructure.Services;
-
+//Service -> workflows ->  tasks
 internal class MapRepositoryService : IMapRepositoryService
 {
     private readonly IDeleteMapWorkflow _deleteMapWorkflow;

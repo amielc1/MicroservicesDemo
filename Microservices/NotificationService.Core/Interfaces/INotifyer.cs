@@ -1,6 +1,4 @@
-﻿using MapEntitiesService.Core.Models;
-
-namespace NotificationService.Core.Interfaces;
+﻿namespace NotificationService.Core.Interfaces;
 
 public interface INotifyer
 {

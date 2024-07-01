@@ -1,5 +1,4 @@
 ﻿using MapRepository.Core.AppSettings;
-using MapRepository.Core.Interfaces.Queries;
 using MapRepository.Core.Models;
 using MapRepository.Core.Workflow;
 using MapRepository.Core.Workflow.Tasks.MissionMapTasks;
